@@ -1,6 +1,8 @@
 <?php
 include ("sidebar.php");
+include ("navbar.php");
 include ("dbh.php");
+
 $lowStock = false;
 $getLowStock = mysqli_query($mysqli, "SELECT * FROM inventory WHERE qty <= 10");
 if($getLowStock->num_rows>=1){

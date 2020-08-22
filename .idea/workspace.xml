@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory.php" beforeDir="false" afterPath="$PROJECT_DIR$/inventory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables.html" beforeDir="false" afterPath="$PROJECT_DIR$/tables.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fOpUPPj4FJEK8kd4HmSbIJrX1n" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="" />
+      <created>1596099009146</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596099009146</updated>
+      <workItem from="1596099012995" duration="65000" />
+      <workItem from="1596100275459" duration="254000" />
+      <workItem from="1596112524484" duration="37000" />
+      <workItem from="1596186030965" duration="81000" />
+      <workItem from="1596683192686" duration="1498000" />
+      <workItem from="1596778046146" duration="634000" />
+      <workItem from="1597718949108" duration="325000" />
+      <workItem from="1597720211879" duration="4034000" />
+      <workItem from="1597897922774" duration="8765000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1597978022628">
+      <screen x="0" y="23" width="1920" height="1020" />
+    </state>
+    <state x="648" y="274" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1016@0.23.1920.1016" timestamp="1596186062408" />
+    <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597978022628" />
+    <state x="719" y="447" key="NewPhpFileDialog" timestamp="1597898484937">
+      <screen x="0" y="23" width="1920" height="1020" />
+    </state>
+    <state x="539" y="370" key="NewPhpFileDialog/0.23.1440.834@0.23.1440.834" timestamp="1596099049363" />
+    <state x="719" y="447" key="NewPhpFileDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597898484937" />
+    <state x="295" y="91" key="SettingsEditor" timestamp="1597719038309">
+      <screen x="0" y="23" width="1920" height="1020" />
+    </state>
+    <state x="221" y="79" key="SettingsEditor/0.23.1440.834@0.23.1440.834" timestamp="1596100491714" />
+    <state x="295" y="91" key="SettingsEditor/0.23.1920.1020@0.23.1920.1020" timestamp="1597719038309" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1597983921388">
+      <screen x="0" y="23" width="1920" height="1020" />
+    </state>
+    <state width="600" height="428" key="javadoc.popup/0.23.1920.1020@0.23.1920.1020" timestamp="1597983921388" />
+    <state x="625" y="247" width="670" height="676" key="search.everywhere.popup" timestamp="1597983683337">
+      <screen x="0" y="23" width="1920" height="1020" />
+    </state>
+    <state x="625" y="247" width="670" height="676" key="search.everywhere.popup/0.23.1920.1020@0.23.1920.1020" timestamp="1597983683337" />
+  </component>
+</project>
