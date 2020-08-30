@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/process_transactions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory.php" beforeDir="false" afterPath="$PROJECT_DIR$/inventory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/navbar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tables.html" beforeDir="false" afterPath="$PROJECT_DIR$/tables.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +39,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1fOpUPPj4FJEK8kd4HmSbIJrX1n" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,11 +72,28 @@
       <workItem from="1597718949108" duration="325000" />
       <workItem from="1597720211879" duration="4034000" />
       <workItem from="1597897922774" duration="8765000" />
+      <workItem from="1598072857651" duration="255000" />
+      <workItem from="1598320854641" duration="263000" />
+      <workItem from="1598326330862" duration="815000" />
+      <workItem from="1598399918549" duration="32000" />
+      <workItem from="1598413522708" duration="621000" />
+      <workItem from="1598754924414" duration="1385000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1597978022628">
@@ -63,10 +101,11 @@
     </state>
     <state x="648" y="274" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1016@0.23.1920.1016" timestamp="1596186062408" />
     <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597978022628" />
-    <state x="719" y="447" key="NewPhpFileDialog" timestamp="1597898484937">
-      <screen x="0" y="23" width="1920" height="1020" />
+    <state x="719" y="446" key="NewPhpFileDialog" timestamp="1598759429448">
+      <screen x="0" y="23" width="1920" height="1018" />
     </state>
     <state x="539" y="370" key="NewPhpFileDialog/0.23.1440.834@0.23.1440.834" timestamp="1596099049363" />
+    <state x="719" y="446" key="NewPhpFileDialog/0.23.1920.1018@0.23.1920.1018" timestamp="1598759429448" />
     <state x="719" y="447" key="NewPhpFileDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597898484937" />
     <state x="295" y="91" key="SettingsEditor" timestamp="1597719038309">
       <screen x="0" y="23" width="1920" height="1020" />

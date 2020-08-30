@@ -115,7 +115,7 @@ $getItems = mysqli_query($mysqli, "SELECT * FROM inventory");
                                 $qty = $newItems['qty'];?>
                                 <tr>
                                     <td><?php echo strtoupper($newItems['item_code']); ?></td>
-                                    <td><?php echo $newItems['item_name']; ?></td>
+                                    <td><?php echo strtoupper($newItems['item_name']); ?></td>
                                     <td><?php echo $newItems['item_description']; ?></td>
                                     <td class="<?php if($qty<=10){ echo 'text-danger'; } ?>">
                                         <?php echo $qty; ?>
