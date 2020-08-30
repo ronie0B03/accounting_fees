@@ -32,7 +32,7 @@ if(isset($_POST['save'])){
     $transactionID = $_POST['transactionID'];
 
     $full_name = $_POST['full_name'];
-    $student_id = $_POST['student_id'];
+    echo $student_id = $_POST['student_id'];
     $amount_paid = $_POST['amount_paid'];
 
     $total=0;
@@ -57,7 +57,7 @@ if(isset($_POST['save'])){
         $itemCtrl--;
     }
 
-    $mysqli->query("INSERT INTO transaction (id, full_name, transaction_date, student_id, total_amount, amount_paid) VALUES('$transactionID', '$full_name', '$date', '$student_id', '$amount_paid' )") or die($mysqli->error());
+    $mysqli->query("INSERT INTO transaction (id, full_name, transaction_date, student_id, total_amount, amount_paid) VALUES('$transactionID', '$full_name', '$date', '$student_id', '$total', '$amount_paid' )") or die($mysqli->error());
 
     $_SESSION['message'] = "Transaction has been saved!";
     $_SESSION['msg_type'] = "success";
