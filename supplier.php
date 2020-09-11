@@ -1,5 +1,5 @@
 <?php
-require_once 'process_inventory.php';
+require_once 'process_supplier.php';
 
 include('sidebar.php');
 include('navbar.php');
@@ -8,13 +8,11 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI;
 
-$getLastItem = mysqli_query($mysqli, "SELECT * FROM inventory");
+$getLastItem = mysqli_query($mysqli, "SELECT * FROM supplier");
 $lastItemID = 0;
 while ($newLastItem = mysqli_fetch_array($getLastItem)) {
     $lastItemID = $newLastItem['id'];
 }
-
-$getItems = mysqli_query($mysqli, "SELECT * FROM inventory");
 
 $getSupplier = mysqli_query($mysqli, "SELECT * FROM supplier");
 
@@ -33,7 +31,7 @@ $getSupplier = mysqli_query($mysqli, "SELECT * FROM supplier");
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Inventory</h1>
+                <h1 class="h3 mb-0 text-gray-800">Supplier</h1>
             </div>
 
             <!-- Alert here -->
@@ -51,53 +49,40 @@ $getSupplier = mysqli_query($mysqli, "SELECT * FROM supplier");
             <!-- Add Inventory -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Add Inventory</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Add Supplier</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form method="post" action="process_inventory.php">
+                        <form method="post" action="process_supplier.php">
                             <table class="table" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th width="5%">Item ID</th>
-                                    <th width="15%">Supplier</th>
-                                    <th width="">Item Code</th>
-                                    <th width="">Item Name</th>
-                                    <th width="">Quantity</th>
-                                    <th width="">Threshold</th>
-                                    <th width="">(₱) Market Original Price / Item</th>
-                                    <th width="">(₱) Unit Price (SRP)</th>
-                                    <th width="">(₱) Total Cost</th>
-                                    <th width="25%">Description (Optional)</th>
+                                    <th width="5%">ID</th>
+                                    <th width="">Supplier Name</th>
+                                    <th width="">Contact No.</th>
+                                    <th width="">Email Address</th>
+                                    <th width="">Additional Information</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input type="text" name="item_id" class="form-control" value="<?php echo ++$lastItemID; ?>" required readonly></td>
-                                    <td>
-                                        <select name="supplier_id" class="form-control">
-                                            <?php while($newSupplier=$getSupplier->fetch_assoc()){ ?>
-                                            <option value="<?php echo $newSupplier['id']; ?>"><?php echo $newSupplier['supplier_name']; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </td>
-                                    <td><input type="text" name="item_code" class="form-control" required></td>
-                                    <td><input type="text" name="item_name" class="form-control" required></td>
-                                    <td><input type="number" name="qty" class="form-control" required></td>
-                                    <td><input type="number" name="threshold" class="form-control" placeholder="Low Stock Alert" required></td>
-                                    <td><input type="number" name="market_price" step="0.01" class="form-control" required></td>
-                                    <td><input type="number" name="price" step="0.01" class="form-control" required></td>
-                                    <td><input type="number" name="total_cost" step="0.01" class="form-control" required></td>
-                                    <td><textarea name="description" class="form-control" style="min-height: 100px;"></textarea></td>
+                                    <td><input type="text" name="supplier_id" class="form-control" value="<?php if($edit){echo $supplier_id;}else{echo ++$lastItemID;} ?>" required readonly></td>
+                                    <td><input type="text" name="supplier_name" class="form-control" placeholder="Angelina Bakery" value="<?php if($edit){echo $supplier_name;} ?>" required></td>
+                                    <td><input type="contact" name="contact_no" class="form-control" placeholder="09234567890" value="<?php if($edit){echo $contact_no;} ?>" required></td>
+                                    <td><input type="email" name="email_address" class="form-control" placeholder="accounting@spcf.edu.ph" value="<?php if($edit){echo $email_address;} ?>" required></td>
+                                    <td><textarea name="other_info" class="form-control" style="min-height: 50px;" placeholder="e.g. Address"><?php if($edit){echo $other_info;} ?></textarea></td>
                                 </tr>
                                 </tbody>
                             </table>
+                            <?php if(!$edit){ ?>
                             <button class="float-right btn btn-sm btn-primary m-1" name="save" type="submit"><i class="far fa-save" ></i> Save</button>
+                            <?php } else { ?>
+                                <button class="float-right btn btn-sm btn-success m-1" name="update" type="submit"><i class="far fa-save" ></i> Update</button>
+                            <?php } ?>
                             <a href="inventory.php" class="btn btn-danger btn-sm m-1 float-right"><i class="fas as fa-sync"></i> Cancel</a>
                         </form>
                     </div>
-                    ***Note: <b>"Market Original Price / Item"</b> is needed to accurately calculate your earnings later on. Thank you<br/>
-                    <b>"Threshold"</b> is needed to alert the management about the inventory that is low in stock.<br/>
+
                 </div>
             </div>
             <!-- End Add Inventory -->
@@ -105,46 +90,39 @@ $getSupplier = mysqli_query($mysqli, "SELECT * FROM supplier");
             <!-- List of Items -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">List of Items</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">List of Supplier</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="inventoryTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>Item Code</th>
-                                <th>Item Name</th>
-                                <th>Description</th>
-                                <th>QTY (Stock)</th>
-                                <th>Market Price</th>
-                                <th>Price (Your Price)</th>
-                                <th style="display: none;">Total Sold</th>
-                                <th>Update QTY</th>
+                                <th>ID</th>
+                                <th>Supplier Name</th>
+                                <th>Contact No</th>
+                                <th>Email Address</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php while($newItems = $getItems->fetch_assoc()){
-                                $qty = $newItems['qty'];?>
+                            <?php while($newSupplier = $getSupplier->fetch_assoc()){ ?>
                                 <tr>
-                                    <td><?php echo strtoupper($newItems['item_code']); ?></td>
-                                    <td><?php echo strtoupper($newItems['item_name']); ?></td>
-                                    <td><?php echo $newItems['item_description']; ?></td>
-                                    <td class="<?php if($qty<=10){ echo 'text-danger'; } ?>">
-                                        <?php echo $qty; ?>
-                                    </td>
-                                    <td>₱<?php echo $newItems['market_original_price']; ?></td>
-                                    <td>₱<?php echo $newItems['item_price']; ?></td>
-                                    <td style="display: none;"><?php echo 'total sold here'; ?></td>
-                                    <td><a href="inventoy_add_stock.php?item_id=<?php echo $newItems['id'];?>">Update / Add Stock</a></td>
+                                    <td><?php echo strtoupper($newSupplier['id']); ?></td>
+                                    <td><?php echo strtoupper($newSupplier['supplier_name']); ?></td>
+                                    <td><?php echo $newSupplier['contact_no']; ?></td>
+                                    <td><?php echo $newSupplier['email_address']; ?></td>
                                     <td>
+                                        <a class="btn btn-sm btn-info mb-1" href="supplier.php?edit=<?php echo $newSupplier['id'];?>">
+                                            <i class="fas fa-edit"></i>
+                                            Edit
+                                        </a>
                                         <!-- Start Drop down Delete here -->
                                         <button class="btn btn-danger btn-secondary dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="far fa-trash-alt"></i> Delete
                                         </button>
                                         <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm">
                                             Are you sure you want to delete? You cannot undo the changes<br/>
-                                            <a href="process_inventory.php?delete=<?php echo $newItems['id']; ?>" class='btn btn-danger btn-sm'>
+                                            <a href="process_inventory.php?delete=<?php echo $newSupplier['id']; ?>" class='btn btn-danger btn-sm'>
                                                 <i class="far fa-trash-alt"></i> Confirm Delete
                                             </a>
                                             <a href="#" class='btn btn-success btn-sm'><i class="far fa-window-close"></i> Cancel</a>

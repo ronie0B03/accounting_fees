@@ -1,3 +1,4 @@
+
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
@@ -31,8 +32,8 @@
             </div>
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="logout.php">Logout</a>
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-sm" href="logout.php">Logout</a>
             </div>
         </div>
     </div>
@@ -55,6 +56,37 @@
 
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
+
+<!-- Transaction Modal -->
+<div id="transactionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="">Select Student</label>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="process_transaction.php">
+                    <input type="text" class="form-control mb-1" name="student_id" placeholder="Student ID:" required>
+                    <button class="float-right btn btn-sm btn-info mb-1" type="submit" name="find_student">Submit</button>
+
+                    <br/>
+                    <br/>
+                </form>
+                <form method="post" action="process_transaction.php">
+                    <label>New Cusrtomer</label>
+                    <input type="text" class="form-control mb-1" name="new_cust_name" placeholder="ex: Juan Cruz" required>
+                    <button class="float-right btn btn-sm btn-warning mb-1 text-gray-900" type="submit" name="new_cust">For New Customer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal here -->
 
 </body>
 

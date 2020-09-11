@@ -7,7 +7,13 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
 
+$getLastTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
 $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
+
+$lastTransactionID = 0;
+while ($newLastTransaction = mysqli_fetch_array($getLastTransaction)) {
+    $lastTransactionID = $newLastTransaction['id'];
+}
 
 if(!isset($_GET['itemCtrl'])){
     $itemCtrl = 1;
@@ -16,30 +22,6 @@ else{
     $itemCtrl = $_GET['itemCtrl'];
 }
 
-$accountFound = false;
-
-if(isset($_GET['account'])){
-    if($_GET['account']==1){
-        $accountFound = true;
-    }
-    else{
-        $accountFound = false;
-    }
-}
-else{ ?>
-<meta http-equiv = "refresh" content = "0; url = index.php" />
-<?php
-}
-$currentID = $_SESSION['current_transact_id'];
-$getCurrentTransaction = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id='$currentID' AND void = 0");
-if(mysqli_num_rows($getCurrentTransaction) > 0){
-    $pendingItems = true;
-    $total = 0;
-}
-else{
-    $pendingItems = false;
-    $total = 0;
-}
 ?>
 <title>Transactions - Celine & Peter Store</title>
 <!-- Content Wrapper -->
@@ -78,68 +60,68 @@ else{
                 <div class="card-body">
                     <div class="table-responsive">
                         <form method="post" action="process_transaction.php">
-                            <input type="text" class="form-control" name="transactionID" value="<?php echo $currentID; ?>" readonly style="visibility: hidden;">
+
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th>Item</th>
                                     <th>Quantity</th>
-                                    <th>Price / Item</th>
+                                    <th>Adjusted Price / Item</th>
                                     <th>Subtotal</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!-- Start -->
-                                <?php while($newCurrentTransaction = $getCurrentTransaction->fetch_assoc()){ ?>
-                                    <tr>
-                                        <td>
-                                            <select dir="rtl" class="form-control" name="item" disabled>
-                                                <?php
-                                                $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
-                                                while($newItemsForAdding=$getItemForAdding->fetch_assoc()){
-                                                    ?>
-                                                    <option class="" value="<?php echo $newItemsForAdding['id']; ?>">
-                                                        <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']/*.' - PHP'.$newItemsForAdding['item_price']*/); ?>
-                                                    </option>
-                                                <?php } ?>
-                                            </select>
-                                        </td>
-                                        <td><?php echo $newCurrentTransaction['qty']; ?></td>
-                                        <td><?php echo $newCurrentTransaction['price']; ?></td>
-                                        <td><?php echo $subTotal = $newCurrentTransaction['subtotal']; ?></td>
-                                    </tr>
-                                <!-- Stop listing here -->
                                 <?php
-                                    $total+=$subTotal;
-                                    } ?>
+                                $total = 0;
+                                $itemCounter = 1;
+                                while($itemCtrl>=$itemCounter){
+                                    if(isset($_GET['itemCtrl'])){
+                                        $item = $_GET['item'.$itemCounter];
+                                        $qty = $_GET['qty'.$itemCounter];
+                                        $price = $_GET['price'.$itemCounter];
+                                        $subTotal = (float)$qty*(float)$price;
+                                    }
+                                    else{
+                                        $item = NULL;
+                                        $qty = NULL;
+                                        $price = NULL;
+                                        $subTotal = NULL;
+                                    }
+
+                                    ?>
                                     <tr>
                                         <td>
-                                            <select dir="rtl" class="form-control" name="item">
+                                            <select dir="rtl" class="form-control" name="item<?php echo $itemCounter; ?>">
                                                 <?php
                                                 $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
                                                 while($newItemsForAdding=$getItemForAdding->fetch_assoc()){
                                                     ?>
-                                                    <option class="" value="<?php echo $newItemsForAdding['id']; ?>">
+                                                    <option class="" value="<?php echo $newItemsForAdding['id']; ?>" <?php if($item==$newItemsForAdding['id']){echo 'selected';} ?>>
                                                         <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']/*.' - PHP'.$newItemsForAdding['item_price']*/); ?>
                                                     </option>
                                                 <?php } ?>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control" name="qty" value="<?php echo '1'; ?>" min="1" >
+                                            <input type="number" class="form-control" name="qty<?php echo $itemCounter; ?>" value="<?php echo $qty; ?>" placeholder="1" >
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control" name="price" step="0.0001" placeholder="0.00" readonly>
+                                            <input type="number" class="form-control" name="price<?php echo $itemCounter; ?>" value="<?php echo $price ?>" step="0.0001" placeholder="0.00" readonly>
                                         </td>
-                                        <td><input class="form-control" name="subTotal" value="" step="0.0001" placeholder="0.00" readonly></td>
+                                        <td><input class="form-control" name="subTotal" value="<?php echo number_format($subTotal,2); ?>" step="0.0001" placeholder="0.00" readonly></td>
                                     </tr>
+                                    <?php
+                                    $itemCounter++;
+                                    $total += $subTotal;
+                                } ?>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-success btn-sm float-right" name="add_item">Add Item</button>
-                            <br/>
-                            <br/>
+                            <input type="text" name="itemCtrl" value="<?php echo $itemCtrl; ?>" style="visibility: hidden;">
                             <span class="float-right"><b>TOTAL: ₱<?php echo number_format($total,2); ?></b></span>
-                            <input name="grand_total" class="form-control" value="<?php echo $total;?>" style="visibility: hidden;">
+                            <br>
+                            <button type="submit" class="btn btn-success btn-sm float-right" name="add_item">Add Item</button>
+                            <br>
+                            <br>
                             <br>
                             <table class="table" width="100%" cellspacing="0">
                                 <thead>
@@ -152,18 +134,18 @@ else{
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="transactionID" value="<?php echo $currentID; ?>" readonly></td>
-                                    <td><input type="number" class="form-control" name="student_id" placeholder="ex: 0191919003;" value="<?php echo $_SESSION['student_id']; ?>" readonly  ></td>
-                                    <td><input type="text" class="form-control" name="full_name" placeholder="ex: Juan Cruz" value="<?php echo $_SESSION['full_name']; ?>" readonly ></td>
-                                    <td><input type="number" step="0.01" class="form-control" name="amount_paid" min="<?php echo $total; ?>" value="<?php echo $total; ?>" required></td>
+                                    <td><input type="text" class="form-control" name="transactionID" value="<?php echo ++$lastTransactionID; ?>" readonly></td>
+                                    <td><input type="number" class="form-control" name="student_id" placeholder="ex: 0191919003;" value="000"></td>
+                                    <td><input type="text" class="form-control" name="full_name" placeholder="ex: Juan Cruz" value="Juan Cruz"></td>
+                                    <td><input type="number" step="0.01" class="form-control" name="amount_paid" placeholder="<?php echo $total; ?>" value="<?php echo $total; ?>" required></td>
                                 </tr>
                                 </tbody>
                             </table>
                             <br/>
-                            <div style="text-align: center;">
+                            <center>
                                 <button class="btn btn-sm btn-primary m-1" name="save" type="submit"><i class="far fa-save" ></i> Save</button>
                                 <a href="transactions.php" class="btn btn-danger btn-sm m-1"><i class="fas as fa-sync"></i> Cancel</a>
-                            </div>
+                            </center>
                         </form>
                     </div>
                 </div>
@@ -187,7 +169,7 @@ else{
                                 <th>Total Amount</th>
                                 <th>Total Paid</th>
                                 <th style="display: none;">Total Balance</th>
-                                <th style="display: none;">Actions</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -204,7 +186,7 @@ else{
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">
                                         <b><?php echo number_format($balance,2); ?></b>
                                     </td>
-                                    <td style="display:none;">
+                                    <td>
                                         <!-- Start Drop down Delete here -->
                                         <button class="btn btn-danger btn-secondary dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="far fa-trash-alt"></i> Delete

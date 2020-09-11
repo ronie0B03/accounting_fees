@@ -47,7 +47,7 @@ if (!isset($_SESSION['username'])) {
         }
         html{
             font-family: 'Roboto Condensed', sans-serif !important;
-            font-size: 13.5px;
+            font-size: 14px;
             scroll-behavior: smooth !important;
         }
         input.date{
@@ -72,8 +72,8 @@ if (!isset($_SESSION['username'])) {
         }
         .container-fluid{
             background-color: white;
-            padding-left: 5% !important;
-            padding-right: 5% !important;
+            /*padding-left: 5% !important;
+            padding-right: 5% !important;*/
         }
         #content-wrapper{
             background-color: white !important;

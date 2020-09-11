@@ -14,8 +14,14 @@ if(isset($_POST['save'])){
     $total_cost = mysqli_real_escape_string($mysqli, $_POST['total_cost']);
     $description = mysqli_real_escape_string($mysqli, $_POST['description']);
 
-    $mysqli->query("INSERT INTO inventory (id, item_code, item_name, qty, item_description, item_price, market_original_price) VALUES('$item_id','$item_code','$item_name', '$qty', '$description', '$price', '$market_price')") or die($mysqli->error());
-    $mysqli->query("INSERT INTO inventory_cost (item_id, total_cost, date_added) VALUES('$item_id', '$total_cost', '$date')") or die($mysqli->error());
+    $supplier_id = mysqli_real_escape_string($mysqli, $_POST['supplier_id']);
+    $threshold = mysqli_real_escape_string($mysqli, $_POST['threshold']);
+
+    //Add inventory
+    $mysqli->query("INSERT INTO inventory (id, item_code, item_name, qty, threshold, item_description, item_price, market_original_price) VALUES('$item_id','$item_code','$item_name', '$qty', '$threshold', '$description', '$price', '$market_price')") or die($mysqli->error());
+
+    //Add inventory stock
+    $mysqli->query("INSERT INTO inventory_cost (item_id, total_cost, date_added, supplier_id) VALUES('$item_id', '$total_cost', '$date', '$supplier_id')") or die($mysqli->error());
 
     $_SESSION['message'] = "An item has been added!";
     $_SESSION['msg_type'] = "success";
@@ -40,7 +46,6 @@ if(isset($_POST['add_stock'])){
 
     $new_stock = $new_stock + $old_stock;
     $cost = mysqli_real_escape_string($mysqli, $_POST['cost']);
-
 
     $mysqli->query("UPDATE inventory SET qty='$new_stock', item_name = '$item_name', market_original_price = '$market_price' WHERE id='$item_id' ") or die ($mysqli->error());
     $mysqli->query("INSERT INTO inventory_cost (item_id, total_cost, date_added) VALUES('$item_id', '$cost', '$date')") or die($mysqli->error());

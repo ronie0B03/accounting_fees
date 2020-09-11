@@ -6,44 +6,49 @@ $getURI = $_SESSION['getURI'];
 
 $date = date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d');
-
+/*
+ * 2020-09-10
 if(isset($_POST['add_item'])){
-    $itemCtrl = $_POST['itemCtrl'];
+    $itemCtrl = mysqli_real_escape_string($mysqli, $_POST['itemCtrl']);
     $itemCounter = ++$itemCtrl;
-    while($itemCtrl!=0){
-        $item = $_POST['item'.$itemCtrl];
+    do{
+        $item = mysqli_real_escape_string($mysqli, $_POST['item'.$itemCtrl]);
         $getURI = $getURI.'&item'.$itemCtrl.'='.$item;
 
-        $qty = $_POST['qty'.$itemCtrl];
+        $qty = mysqli_real_escape_string($mysqli, $_POST['qty'.$itemCtrl]);
         $getURI = $getURI.'&qty'.$itemCtrl.'='.$qty;
 
-        $price = $_POST['price'.$itemCtrl];
+        //$price = mysqli_real_escape_string($mysqli, $_POST['price'.$itemCtrl]);
+        $getPrice = $mysqli->query("SELECT * FROM inventory WHERE id='$item' ") or die ($mysqli->error());
+        $newPrice = $getPrice->fetch_array();
+        $price = $newPrice['item_price'];
         $getURI = $getURI.'&price'.$itemCtrl.'='.$price;
 
         $itemCtrl--;
-    }
+    }while($itemCtrl!=0);
+
     $getURI = $getURI.'&itemCtrl='.$itemCounter;
     header("location: ".$getURI);
 }
 
 if(isset($_POST['save'])){
-    $itemCtrl = $_POST['itemCtrl'];
+    $itemCtrl = mysqli_real_escape_string($mysqli, $_POST['itemCtrl']);
     $itemController = 1;
-    $transactionID = $_POST['transactionID'];
+    $transactionID = mysqli_real_escape_string($mysqli, $_POST['transactionID']);
 
-    $full_name = $_POST['full_name'];
-    echo $student_id = $_POST['student_id'];
-    $amount_paid = $_POST['amount_paid'];
+    $full_name = mysqli_real_escape_string($mysqli, $_POST['full_name']);
+    $student_id = mysqli_real_escape_string($mysqli, $_POST['student_id']);
+    $amount_paid = mysqli_real_escape_string($mysqli, $_POST['amount_paid']);
 
     $total=0;
     while($itemCtrl!=0){
-        $item = $_POST['item'.$itemCtrl];
-        $qty = $_POST['qty'.$itemCtrl];
-        $price = $_POST['price'.$itemCtrl];
+        $item = mysqli_real_escape_string($mysqli, $_POST['item'.$itemCtrl]);
+        $qty = mysqli_real_escape_string($mysqli, $_POST['qty'.$itemCtrl]);
+        $price = mysqli_real_escape_string($mysqli, $_POST['price'.$itemCtrl]);
 
         if($qty!=NULL){
             $subTotal = $price*$qty;
-            $mysqli->query("INSERT INTO transaction_lists (transaction_id, item_id, qty, adjusted_price, transaction_date, subtotal) VALUES('$transactionID', '$item', '$qty', '$price','$date','$subTotal' )") or die($mysqli->error());
+            $mysqli->query("INSERT INTO transaction_lists (transaction_id, item_id, qty, price, transaction_date, subtotal) VALUES('$transactionID', '$item', '$qty', '$price','$date','$subTotal' )") or die($mysqli->error());
             //Update Inventory
             $getQtyInventory = mysqli_query($mysqli, "SELECT * FROM inventory WHERE id = '$item' ");
             $newQtyInventory = $getQtyInventory->fetch_array();
@@ -64,11 +69,50 @@ if(isset($_POST['save'])){
 
     header('location: transactions.php');
 }
+*/
+if(isset($_POST['add_item'])){
+    $transactionID = mysqli_real_escape_string($mysqli,$_POST['transactionID']);
+    $item = mysqli_real_escape_string($mysqli, $_POST['item']);
+    $qty = mysqli_real_escape_string($mysqli, $_POST['qty']);
+    $getPrice = $mysqli->query("SELECT * FROM inventory WHERE id='$item' ") or die ($mysqli->error());
+    $newPrice = $getPrice->fetch_array();
+    $price = $newPrice['item_price'];
+
+    $subTotal = floatval($price) * floatval($qty);
+
+    $mysqli->query("INSERT INTO transaction_lists (transaction_id, item_id, qty, price, transaction_date, subtotal) VALUES('$transactionID', '$item', '$qty', '$price','$date','$subTotal' )") or die($mysqli->error());
+
+    $_SESSION['message'] = "Item has been added!";
+    $_SESSION['msg_type'] = "success";
+
+    header("location: ".$getURI);
+
+}
+
+if(isset($_POST['save'])){
+    $transactionID = mysqli_real_escape_string($mysqli, $_POST['transactionID']);
+
+    $full_name = mysqli_real_escape_string($mysqli, $_POST['full_name']);
+    $student_id = mysqli_real_escape_string($mysqli, $_POST['student_id']);
+    $amount_paid = mysqli_real_escape_string($mysqli, $_POST['amount_paid']);
+    $total = mysqli_real_escape_string($mysqli, $_POST['grand_total']);
+
+    $change = $amount_paid - $total;
+
+    $mysqli->query("UPDATE transaction SET amount_paid='$amount_paid', total_amount='$total', amount_change = '$change', status_transact='1' WHERE id='$transactionID' ") or die ($mysqli->error());
+
+    $_SESSION['message'] = "Transaction has been completed!";
+    $_SESSION['msg_type'] = "success";
+
+    header("location: view_transaction.php?id=".$transactionID);
+
+}
+
 
 if(isset($_POST['update_payment'])){
-    $transaction_id = $_POST['transaction_id'];
-    $total_amount_paid = $_POST['total_amount_paid'];
-    $pay_amount = $_POST['pay_amount'];
+    $transaction_id = mysqli_real_escape_string($mysqli, $_POST['transaction_id']);
+    $total_amount_paid = mysqli_real_escape_string($mysqli, $_POST['total_amount_paid']);
+    $pay_amount = mysqli_real_escape_string($mysqli, $_POST['pay_amount']);
 
     $total_amount_paid = $total_amount_paid + $pay_amount;
     $mysqli->query("UPDATE transaction SET amount_paid='$total_amount_paid' WHERE id='$transaction_id' ") or die ($mysqli->error());
@@ -88,6 +132,58 @@ if(isset($_GET['delete'])){
     $_SESSION['msg_type'] = "danger";
 
     header('location: transactions.php');
+}
+
+if(isset($_POST['find_student'])){
+    $student_id = mysqli_real_escape_string($mysqli, $_POST['student_id']);
+    $getStudent = $mysqli->query(" SELECT * FROM student WHERE student_id = '$student_id' ") or die($mysqli->error());
+    if(mysqli_num_rows($getStudent) > 0)
+    {
+        $newStudent = $getStudent->fetch_array();
+        $_SESSION['student_id'] = $newStudent['student_id'];
+        $_SESSION['full_name'] = $newStudent['full_name'];
+        $_SESSION['level'] = $newStudent['level'];
+
+        $student_id = $_SESSION['student_id'];
+        $full_name = $newStudent['full_name'];
+
+        $sql = "INSERT INTO transaction (student_id, full_name, transaction_date ) VALUES('$student_id', '$full_name', '$date' )";
+
+        if (mysqli_query($mysqli, $sql)) {
+            $last_id = mysqli_insert_id($mysqli);
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+        }
+        $_SESSION['current_transact_id'] = $last_id;
+
+        $_SESSION['message'] = "Student found!";
+        $_SESSION['msg_type'] = "primary";
+        header("location: transactions.php?account=1");
+    }
+    else{
+        $_SESSION['message'] =  $student_id. " does not exists in our database, please re-type the ID or Click the NEW CUSTOMER instead.";
+        $_SESSION['msg_type'] = "warning";
+        header("location: ".$getURI);
+    }
+}
+else if(isset($_POST['new_cust'])){
+    $full_name = $_POST['new_cust_name'];
+    $_SESSION['full_name'] = $full_name;
+    $_SESSION['student_id'] = '-1';
+    $_SESSION['level'] = 'NA';
+
+    $sql = "INSERT INTO transaction (student_id, full_name, transaction_date ) VALUES('$student_id', '$full_name', '$date' )";
+
+    if (mysqli_query($mysqli, $sql)) {
+        $last_id = mysqli_insert_id($mysqli);
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
+    }
+    $_SESSION['current_transact_id'] = $last_id;
+
+    $_SESSION['message'] =  "New Transaction";
+    $_SESSION['msg_type'] = "primary";
+    header("location: transactions.php?account=0");
 }
 
 

@@ -3,7 +3,7 @@
 <div id="wrapper">
     <nav>
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -14,7 +14,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -32,7 +32,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="transactions.php">
+                <a class="nav-link btn" data-toggle="modal" data-target="#transactionModal">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Transactions</span></a>
             </li>
@@ -44,8 +44,22 @@
                     <span>Accounts</span></a>
             </li>
 
+            <!-- Nav Item - Suppliers -->
+            <li class="nav-item" style="">
+                <a class="nav-link" href="supplier.php">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Supplier</span></a>
+            </li>
+
             <!-- Nav Item - Reports -->
             <li class="nav-item" style="">
+                <a class="nav-link" href="report.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Reports</span></a>
+            </li>
+
+            <!-- Nav Item - Reports -->
+            <li class="nav-item" style="display: none;">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-table"></i>
@@ -55,7 +69,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Type:</h6>
                         <a class="collapse-item" href="report.php"><i class="fas fa-fw fa-table"></i> Sales Report</a>
-                        <a class="collapse-item" href="report_earnings.php"><i class="fas fa-fw fa-table"></i>  Sales Report with Earnings</a>
                     </div>
                 </div>
             </li>

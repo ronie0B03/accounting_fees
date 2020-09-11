@@ -20,7 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/database/spcf_accounting_fees 2020-09-11.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/print_transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/process_supplier.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/supplier.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transactions-2020-09-11.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view_transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory.php" beforeDir="false" afterPath="$PROJECT_DIR$/inventory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process_inventory.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_inventory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process_login.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/topbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/topbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/transactions.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +66,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -77,6 +100,11 @@
       <workItem from="1598761346837" duration="3000" />
       <workItem from="1598761355707" duration="377000" />
       <workItem from="1598763035140" duration="1238000" />
+      <workItem from="1598835994694" duration="862000" />
+      <workItem from="1599708956950" duration="340000" />
+      <workItem from="1599735554768" duration="2166000" />
+      <workItem from="1599738595446" duration="3302000" />
+      <workItem from="1599784981441" duration="14416000" />
     </task>
     <servers />
   </component>
@@ -99,6 +127,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="184" y="105" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599735637662">
+      <screen x="0" y="23" width="1440" height="838" />
+    </state>
+    <state x="184" y="105" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.838@0.23.1440.838" timestamp="1599735637662" />
     <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1597978022628">
       <screen x="0" y="23" width="1920" height="1020" />
     </state>
