@@ -88,6 +88,7 @@ if(isset($_POST['add_item'])){
     $inventoryQty = $newQtyInventory['qty'] - $qty;
     $mysqli->query("UPDATE inventory SET qty='$inventoryQty' WHERE id='$item' ") or die ($mysqli->error());
 
+
     //Add Logs - Add Items in order
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
@@ -229,5 +230,34 @@ else if(isset($_POST['new_cust'])){
     header("location: transactions.php?account=0");
 }
 
+if(isset($_GET['void'])){
+    $id = $_GET['void'];
+    $qty = $_GET['qty'];
+    $item_id = $_GET['item'];
+    $transaction_id = $_GET['transaction_id'];
+
+    //Get Item Qty
+    $getItem = $mysqli->query(" SELECT * FROM inventory WHERE id = '$item_id' ") or die($mysqli->error());
+    $newItem = $getItem->fetch_array();
+    $currentQty = $newItem['qty'];
+    $currentQty = $currentQty + $qty;
+    //Update Item Qty
+    $mysqli->query("UPDATE inventory SET qty='$currentQty' WHERE id='$item_id' ") or die ($mysqli->error());
+    $mysqli->query("UPDATE transaction_lists SET void='1' WHERE id='$id' ") or die ($mysqli->error());
+
+    //Add Logs - Void Item In Order
+    $accountCashier = $_SESSION['account_full_name'];
+    $logDate = date_default_timezone_set('Asia/Manila');
+    $logDate = date('Y-m-d H:i:s');
+    $context = 'Void Item In Order. Transaction ID:'.$transaction_id.' Item ID:'.$item_id;
+    $context = mysqli_real_escape_string($mysqli, $context);
+    $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Void Item In Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
+
+    $_SESSION['message'] =  "Item has been nullified.";
+    $_SESSION['msg_type'] = "danger";
+
+    header("location: list_transactions.php");
+
+}
 
 ?>

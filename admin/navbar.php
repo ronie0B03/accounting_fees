@@ -31,7 +31,7 @@
             </li>
 
             <!-- Nav Item - Transactions -->
-            <li class="nav-item" style="display: none;">
+            <li class="nav-item" style="display:none;">
                 <a class="nav-link btn" data-toggle="modal" data-target="#transactionModal">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Transactions</span></a>
@@ -50,9 +50,15 @@
                     </div>
                 </div>
             </li>
+            <!-- Nav Item - Void Items -->
+            <li class="nav-item">
+                <a class="nav-link btn" href="list_transactions.php">
+                    <i class="fas fa-key"></i>
+                    <span>Void Items</span></a>
+            </li>
 
             <!-- Nav Item - Accounts -->
-            <li class="nav-item" style="display: none;">
+            <li class="nav-item" style="display:none;">
                 <a class="nav-link" href="#">
                     <i class="fas fa-at"></i>
                     <span>Accounts</span></a>
@@ -66,10 +72,17 @@
             </li>
 
             <!-- Nav Item - Reports -->
-            <li class="nav-item" style="display: none;">
+            <li class="nav-item" >
                 <a class="nav-link" href="report.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Reports</span></a>
+            </li>
+
+            <!-- Nav Item - Activity Log -->
+            <li class="nav-item" >
+                <a class="nav-link" href="activity_log.php">
+                    <i class="fa fa-history""></i>
+                    <span>Activity Log</span></a>
             </li>
 
             <!-- Nav Item - Reports -->
@@ -98,6 +111,23 @@
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="buttons.html">Buttons</a>
                         <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item" style="display: none;">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
             </li>

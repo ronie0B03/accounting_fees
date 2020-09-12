@@ -62,7 +62,7 @@ if(isset($_POST['add_stock'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Update Stock ID :'.$item_id.', newStock: '.$qty.', marketPrice: '.$market_price.', totalCost: '.$cost;
+    $context = 'Update Stock ID:'.$item_id.', newStock: '.$qty.', marketPrice: '.$market_price.', totalCost: '.$cost;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Inventory - Update Stock', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 

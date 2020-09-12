@@ -183,7 +183,7 @@ else{
                                 <th>Date</th>
                                 <th>Control ID</th>
                                 <th>Full Name</th>
-                                <th style="display: none;">Phone Num</th>
+                                <th>Phone Num</th>
                                 <th>Total Amount</th>
                                 <th>Total Paid</th>
                                 <th style="display: none;">Total Balance</th>
@@ -198,7 +198,7 @@ else{
                                     <td><?php echo $newTransaction['transaction_date']; ?></td>
                                     <td><a href="view_transaction.php?id=<?php echo $newTransaction['id']; ?>" target="_blank"><?php echo $newTransaction['id']; ?></a></td>
                                     <td><a href="view_transaction.php?id=<?php echo $newTransaction['id']; ?>" target="_blank"><?php echo $newTransaction['full_name']; ?></a></td>
-                                    <td style="display: none;"><?php echo $newTransaction['phone_num']; ?></td>
+                                    <td><?php echo $newTransaction['phone_num']; ?></td>
                                     <td><?php echo '₱'.number_format($newTransaction['total_amount'],2); ?></td>
                                     <td><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">

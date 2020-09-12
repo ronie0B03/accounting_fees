@@ -20,25 +20,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/spcf_accounting_fees 2020-09-11.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/print_transaction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/process_supplier.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/supplier.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transactions-2020-09-11.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view_transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/dbh.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/footer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/for_receipt.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/gulpfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/inventory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/inventoy_add_stock.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/list_transactions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/logout.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/navbar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/print_transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_inventory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_receipt.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_report.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_supplier.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/report.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/sidebar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/supplier.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/topbar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/transactions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/view_transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/for_receipt.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/process_receipt.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE 2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blank.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buttons.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forgot-password.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory.php" beforeDir="false" afterPath="$PROJECT_DIR$/inventory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/print_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/print_transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process_inventory.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_inventory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/process_login.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/activity_log.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier.php" beforeDir="false" afterPath="$PROJECT_DIR$/supplier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/topbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/topbar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities-animation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities-border.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities-color.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities-other.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_transaction.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +141,8 @@
       <workItem from="1599708956950" duration="340000" />
       <workItem from="1599735554768" duration="2166000" />
       <workItem from="1599738595446" duration="3302000" />
-      <workItem from="1599784981441" duration="14416000" />
+      <workItem from="1599784981441" duration="14668000" />
+      <workItem from="1599868105159" duration="15138000" />
     </task>
     <servers />
   </component>
