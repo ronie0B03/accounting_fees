@@ -39,17 +39,18 @@
 
             <!-- Transactions -->
             <li class="nav-item" style="">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransactions" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Transactions</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="collapseTransactions" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" data-toggle="modal" data-target="#transactionModal">Add Transactions</a>
                         <a class="collapse-item" href="for_receipt.php">View Transactions</a>
                     </div>
                 </div>
             </li>
+
             <!-- Nav Item - Void Items -->
             <li class="nav-item">
                 <a class="nav-link btn" href="list_transactions.php">
@@ -72,10 +73,17 @@
             </li>
 
             <!-- Nav Item - Reports -->
-            <li class="nav-item" >
-                <a class="nav-link" href="report.php">
+            <li class="nav-item" style="">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Reports</span></a>
+                    <span>Reports</span>
+                </a>
+                <div id="collapseReports" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="report.php">Consolidated Reports</a>
+                        <a class="collapse-item" href="report.php">Individual Item Report</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Activity Log -->

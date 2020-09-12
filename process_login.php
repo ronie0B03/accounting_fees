@@ -9,6 +9,7 @@ if (isset($_POST['login'])) {
 
         $_SESSION['username'] = $newAccoount['username'];
         $_SESSION['account_full_name'] = $newAccoount['full_name'];
+        $_SESSION['account_role'] = $newAccoount['role'];
         $_SESSION['account_id'] = $newAccoount['id'];
         header("location: index.php");
     }

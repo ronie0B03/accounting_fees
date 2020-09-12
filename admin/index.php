@@ -30,6 +30,17 @@ WHERE qty > 0 ");
 $getTotalItems = $getTotalItems->fetch_array();
 $total_items = $getTotalItems['total_items'];
 
+
+//Get Monthly Sales;
+$getMonthlySales = mysqli_query($mysqli, "SELECT YEAR(transaction_date) as SalesYear, MONTH(transaction_date) as SalesMonth, SUM(total_amount) AS TotalSales
+FROM transaction
+GROUP BY YEAR(transaction_date), MONTH(transaction_date)
+ORDER BY YEAR(transaction_date), MONTH(transaction_date)");
+$counter=0;
+$month[-1] = 0;
+while($newMonthlySales=$getMonthlySales->fetch_assoc()){
+    $month[++$counter]=$newMonthlySales['TotalSales'];
+}
 ?>
 
 <!-- Content Wrapper -->
@@ -132,7 +143,7 @@ $total_items = $getTotalItems['total_items'];
 
             </div>
 
-            <!-- Another Section -->
+            <!-- Add Transaction -->
             <div class="row">
                 <div class="col-xl-6 col-md-6 mb-2">
                     <div class="card shadow mb-2">
@@ -161,7 +172,39 @@ $total_items = $getTotalItems['total_items'];
                     </div>
                 </div>
             </div>
+            <!-- Charts -->
+            <div class="row">
+                <!-- Area Chart -->
+                <div class="col-xl-6 col-md-6 mb-2">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="indexChart"></canvas>
+                            </div>
+                            <hr>
+                            Disclaimer: This chart will grow once data has been fed.
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-xl-6 col-md-6 mb-2">
+                    <div class="card shadow mb-2" style="display: none;">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Select Student</h6>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="process_transaction.php">
+                                <input type="text" class="form-control mb-2" name="student_id" placeholder="Student ID:" required>
+                                <button class="float-right btn btn-sm btn-info mb-2" type="submit" name="find_student">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
         </div>
@@ -170,6 +213,102 @@ $total_items = $getTotalItems['total_items'];
     </div>
     <!-- End of Main Content -->
 
+    <!-- Page level plugins -->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/chart-area-demo.js"></script>
+
+    <script type="text/javascript">
+        var ctx = document.getElementById("indexChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Earnings",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: [<?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo $month[1]; ?>, <?php echo $month[2]; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>],
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            // Include a dollar sign in the ticks
+                            callback: function(value, index, values) {
+                                return '₱' + number_format(value);
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': ₱' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
     <?php
     include ("footer.php");
     ?>

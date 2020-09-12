@@ -8,8 +8,9 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI;
 
-$dateExist = false;
+$getItem = mysqli_query($mysqli, " SELECT * FROM inventory  ");
 
+$dateExist = false;
 if(isset($_GET['from_date'])){
     $dateExist = true;
     $from_date = $_GET['from_date'].' 00:00:00';
@@ -59,14 +60,23 @@ if(isset($_GET['from_date'])){
                                 <tr>
                                     <th width="">From Date</th>
                                     <th width="">To Date</th>
-                                    <th width="">Action</th>
+                                    <th width="25%">Item</th>
+                                    <th width="" style="display: none;">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input type="date" class="form-control" name="from_date"></td>
-                                    <td><input type="date" class="form-control" name="to_date"></td>
-                                    <td><button class="btn btn-sm btn-info" type="submit" name="get_report">Send</button></td>
+                                    <td><input type="date" class="form-control" name="from_date" required></td>
+                                    <td><input type="date" class="form-control" name="to_date" required></td>
+                                    <td style="display: none;">
+                                        <select class="form-control" name="item_id">
+                                            <option value="all" selected>ALL</option>
+                                            <?php while($newItem = $getItem->fetch_array()){ ?>
+                                                <option value="<?php echo $newItem['id'];?>"><?php echo $newItem['item_name'];?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                    <td><button class="btn btn-sm btn-info" type="submit" name="get_report">Proceed</button></td>
                                 </tr>
                                 </tbody>
                             </table>
