@@ -19,7 +19,7 @@ $getItems = mysqli_query($mysqli, "SELECT * FROM inventory");
 $getSupplier = mysqli_query($mysqli, "SELECT * FROM supplier");
 
 ?>
-<title>Inventory - Celine & Peter Store</title>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 

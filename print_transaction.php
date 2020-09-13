@@ -23,7 +23,7 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
 $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' ");
 ?>
-<title>Print Transaction - Celine & Peter Store <?php echo $newTransaction['transaction_date'].'-'.$newTransaction['full_name']; ?></title>
+<title>SPCF Officie Receipt. Control ID: <?php echo $id; ?>  AR No: <?php echo sprintf('%08d',$receipt_id); ?> </title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -64,7 +64,7 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
                     <span class=" h6 m-0 font-weight-bold text-danger float-right">AR No: <?php echo sprintf('%08d',$receipt_id); ?></span>
                 </div>
                 <div class="card-body">
-                    <span class="float-right">Date: <b><?php echo date('Y-m-d');?></b></span>
+                    <span class="float-right">Date: <b><?php echo date('Y-m-d H:i:s');?></b></span>
                     Customer Name: <b><?php echo $newTransaction['full_name']; ?></b>
                     <br>
                     Address: <b><?php echo $newTransaction['address']; ?></b>

@@ -18,7 +18,6 @@ if (!isset($_SESSION['username'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SPCF - ACCOUNTING SYSTEM - DASHBOARD </title>
     <link rel="icon" href="img/favicon.png" type="image/gif" sizes="16x16">
 
     <!-- Custom fonts for this template -->

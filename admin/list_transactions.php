@@ -14,6 +14,7 @@ $getTransactionsList = mysqli_query($mysqli, " SELECT t.student_id, t.full_name,
  JOIN inventory i ON i.id = tl.item_id 
  WHERE tl.void ='0' AND t.status_transact = '0' ");
 ?>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 

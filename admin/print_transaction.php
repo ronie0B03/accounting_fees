@@ -23,7 +23,7 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
 $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' ");
 ?>
-<title>Print Transaction - Celine & Peter Store <?php echo $newTransaction['transaction_date'].'-'.$newTransaction['full_name']; ?></title>
+<title>SPCF Officie Receipt. Control ID: <?php echo $id; ?> AR No: <?php echo sprintf('%08d',$receipt_id); ?> </title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -39,10 +39,13 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
             <!-- Page Heading -->
             <div class="align-items-center justify-content-between mb-4" >
                 <h4 style="text-align: center !important; font-family: 'Times New Roman' !important; margin-bottom: -5px;">
-                    <img src="img/logo.png" style="width: 40px;">
-                    SYSTEMS PLUS COLLEGE FOUNDATION
+                    <img src="../img/logo.png" style="width: 40px;">
+                    SYSTEMS PLUS COLLEGE FOUNDATION<br/>
                 </h4>
-                <div style="text-align: center;">Mc Arthur Hi-Way Balibago, Angeles City, Pampanga</div>
+                <div style="text-align: center; margin-left: 40px;">
+                    Sta. Isabel, Mc Arthur Hi-Way Balibago, Angeles City, Pampanga<br/>
+                    Tel. (045)322-6978 / 322-7783 Loc. 201
+                </div>
             </div>
 
             <!-- Alert here -->
@@ -64,7 +67,7 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
                     <span class=" h6 m-0 font-weight-bold text-danger float-right">AR No: <?php echo sprintf('%08d',$receipt_id); ?></span>
                 </div>
                 <div class="card-body">
-                    <span class="float-right">Date: <b><?php echo date('Y-m-d');?></b></span>
+                    <span class="float-right">Date: <b><?php echo date('Y-m-d H:i:s');?></b></span>
                     Customer Name: <b><?php echo $newTransaction['full_name']; ?></b>
                     <br>
                     Address: <b><?php echo $newTransaction['address']; ?></b>

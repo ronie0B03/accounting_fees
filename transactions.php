@@ -41,7 +41,7 @@ else{
     $total = 0;
 }
 ?>
-<title>Transactions - Celine & Peter Store</title>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 

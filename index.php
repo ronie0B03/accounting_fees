@@ -31,6 +31,7 @@ $getTotalItems = $getTotalItems->fetch_array();
 $total_items = $getTotalItems['total_items'];
 
 ?>
+<title>SPCF - Accounting Office</title>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">

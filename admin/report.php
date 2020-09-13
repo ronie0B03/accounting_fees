@@ -19,6 +19,7 @@ if(isset($_GET['from_date'])){
 }
 //print_r($getTransactions);
 ?>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -117,8 +118,8 @@ if(isset($_GET['from_date'])){
                                     <td><?php echo $newTransactions['student_id']; ?></td>
                                     <td><?php echo $newTransactions['full_name']; ?></td>
                                     <td><?php echo $newTransactions['transaction_date']; ?></td>
-                                    <td>₱ <?php echo $newTransactions['total_amount']; ?></td>
-                                    <td>₱ <?php echo $newTransactions['amount_paid']; ?></td>
+                                    <td>₱ <?php echo number_format($newTransactions['total_amount'],2); ?></td>
+                                    <td>₱ <?php echo number_format($newTransactions['amount_paid'],2); ?></td>
                                     <td>₱ <?php echo number_format($newTransactions['amount_change'],2); ?></td>
                                     <td><?php echo $newTransactions['cashier_account']; ?></td>
                                 </tr>

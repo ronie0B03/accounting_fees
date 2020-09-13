@@ -41,8 +41,13 @@ $month[-1] = 0;
 while($newMonthlySales=$getMonthlySales->fetch_assoc()){
     $month[++$counter]=$newMonthlySales['TotalSales'];
 }
-?>
 
+//Get Earnings per cashier counter
+$getIndividualEarning = mysqli_query($mysqli, "SELECT SUM(total_amount) AS individualEarning, cashier_account
+FROM transaction WHERE transaction_date BETWEEN '$from_date' AND '$to_date'
+GROUP BY cashier_account");
+?>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -191,15 +196,32 @@ while($newMonthlySales=$getMonthlySales->fetch_assoc()){
                 </div>
 
                 <div class="col-xl-6 col-md-6 mb-2">
-                    <div class="card shadow mb-2" style="display: none;">
+                    <div class="card shadow mb-2" style="">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Select Student</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Earnings per Cashier</h6>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="process_transaction.php">
-                                <input type="text" class="form-control mb-2" name="student_id" placeholder="Student ID:" required>
-                                <button class="float-right btn btn-sm btn-info mb-2" type="submit" name="find_student">Submit</button>
-                            </form>
+                            Below are the expected earnings that should tally with their cabin
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Cashier / Accountant</th>
+                                        <th>Total Earning</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $counter = 0;
+                                while($newIndividualEarning=$getIndividualEarning->fetch_assoc()){ ?>
+                                    <tr>
+                                        <td><?php echo ++$counter; ?></td>
+                                        <td>₱ <?php echo number_format($newIndividualEarning['individualEarning'],2); ?></td>
+                                        <td><?php echo $newIndividualEarning['cashier_account']; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

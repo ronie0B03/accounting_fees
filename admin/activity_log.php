@@ -10,6 +10,7 @@ $_SESSION['getURI'] = $getURI;
 
 $getLogs = mysqli_query($mysqli, " SELECT * FROM logs ");
 ?>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 

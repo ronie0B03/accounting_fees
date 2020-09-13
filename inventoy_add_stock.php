@@ -26,7 +26,7 @@ else{
     $newItems = $getItems->fetch_assoc();
 }
 ?>
-<title>Add Stock - Celine & Peter Store</title>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
