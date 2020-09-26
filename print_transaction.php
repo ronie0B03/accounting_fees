@@ -60,8 +60,8 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
             <!-- View Individual Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <span class="h6 m-0 font-weight-bold text-primary">Transaction Control ID: <?php echo $id; ?></span>
-                    <span class=" h6 m-0 font-weight-bold text-danger float-right">AR No: <?php echo sprintf('%08d',$receipt_id); ?></span>
+                    <span class="h6 m-0 font-weight-bold text-danger">Transaction Control ID / AR No: <?php echo sprintf('%08d',$id); ?></span>
+                    <span class=" h6 m-0 font-weight-bold text-danger float-right" style="display: none">AR No: <?php echo sprintf('%08d',$receipt_id); ?></span>
                 </div>
                 <div class="card-body">
                     <span class="float-right">Date: <b><?php echo date('Y-m-d H:i:s');?></b></span>

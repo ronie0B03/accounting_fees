@@ -21,7 +21,7 @@ $newTransaction = $getTransaction->fetch_array();
 
 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
-$getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' ");
+$getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void = '0' ");
 ?>
 <title>SPCF Officie Receipt. Control ID: <?php echo $id; ?> AR No: <?php echo sprintf('%08d',$receipt_id); ?> </title>
 <!-- Content Wrapper -->
