@@ -20,13 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/spcf_accounting_fees_2020_09_16.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/today_transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/print_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/print_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/view_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/view_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/for_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/for_receipt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/list_transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/list_transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/process_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/transactions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/print_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/print_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_transaction.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,11 +55,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -96,6 +100,7 @@
       <workItem from="1599868105159" duration="15138000" />
       <workItem from="1599961817301" duration="5280000" />
       <workItem from="1600319283865" duration="847000" />
+      <workItem from="1601108050056" duration="5745000" />
     </task>
     <servers />
   </component>
@@ -133,10 +138,11 @@
     <state x="539" y="370" key="NewPhpFileDialog/0.23.1440.834@0.23.1440.834" timestamp="1596099049363" />
     <state x="719" y="446" key="NewPhpFileDialog/0.23.1920.1018@0.23.1920.1018" timestamp="1598759429448" />
     <state x="719" y="447" key="NewPhpFileDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597898484937" />
-    <state x="295" y="91" key="SettingsEditor" timestamp="1597719038309">
-      <screen x="0" y="23" width="1920" height="1020" />
+    <state x="1735" y="93" key="SettingsEditor" timestamp="1601108109136">
+      <screen x="1440" y="23" width="1920" height="1057" />
     </state>
     <state x="221" y="79" key="SettingsEditor/0.23.1440.834@0.23.1440.834" timestamp="1596100491714" />
+    <state x="1735" y="93" key="SettingsEditor/0.23.1440.836/1440.23.1920.1057@1440.23.1920.1057" timestamp="1601108109136" />
     <state x="295" y="91" key="SettingsEditor/0.23.1920.1020@0.23.1920.1020" timestamp="1597719038309" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1597983921388">
       <screen x="0" y="23" width="1920" height="1020" />

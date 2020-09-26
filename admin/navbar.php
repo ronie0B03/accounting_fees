@@ -51,11 +51,18 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Void Items -->
-            <li class="nav-item">
-                <a class="nav-link btn" href="list_transactions.php">
+            <!-- Void -->
+            <li class="nav-item" style="">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVoid" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-key"></i>
-                    <span>Void Items</span></a>
+                    <span>Void</span>
+                </a>
+                <div id="collapseVoid" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="list_transactions.php">Void Item</a>
+                        <a class="collapse-item" href="today_transaction.php">Cancel / Return Transaction</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Accounts -->

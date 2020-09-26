@@ -234,6 +234,10 @@ if(isset($_GET['void'])){
     $id = $_GET['void'];
     $qty = $_GET['qty'];
     $item_id = $_GET['item'];
+    $price = $_GET['price'];
+    $sub_total = $_GET['sub_total'];
+    $item_name = $_GET['item_name'];
+
     $transaction_id = $_GET['transaction_id'];
 
     //Get Item Qty
@@ -249,7 +253,7 @@ if(isset($_GET['void'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Void Item In Order. Transaction ID:'.$transaction_id.' Item ID:'.$item_id;
+    $context = 'Void Item In Order. Transaction ID:'.$transaction_id.' Item ID:'.$item_id.' Item Name: '.$item_name.' Price: '.$price.' Sub Total: '.$sub_total;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Void Item In Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -258,6 +262,15 @@ if(isset($_GET['void'])){
 
     header("location: list_transactions.php");
 
+}
+
+if(isset($_GET['cancel'])){
+    $id = $_GET['cancel'];
+    $getTransactionLists = $mysqli->query(" SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void = '0' ") or die($mysqli->error());
+
+    while($newTransactionLists=$getTransactionLists->fetch_assoc()){
+        print_r($newTransactionLists);
+    }
 }
 
 ?>

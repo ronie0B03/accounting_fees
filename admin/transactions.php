@@ -31,7 +31,9 @@ else{ ?>
 <?php
 }
 $currentID = $_SESSION['current_transact_id'];
-$getCurrentTransaction = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id='$currentID' AND void = 0");
+$getCurrentTransaction = mysqli_query($mysqli, "SELECT *, i.item_name, tl.qty AS tl_qty, tl.price AS tl_price FROM transaction_lists tl
+JOIN inventory i ON i.id = tl.item_id
+WHERE tl.transaction_id='$currentID' AND void = 0");
 if(mysqli_num_rows($getCurrentTransaction) > 0){
     $pendingItems = true;
     $total = 0;
@@ -41,7 +43,7 @@ else{
     $total = 0;
 }
 ?>
-<title>Transactions - Celine & Peter Store</title>
+<title>Transactions</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -92,20 +94,9 @@ else{
                                 <!-- Start -->
                                 <?php while($newCurrentTransaction = $getCurrentTransaction->fetch_assoc()){ ?>
                                     <tr>
-                                        <td>
-                                            <select dir="rtl" class="form-control" name="item" disabled>
-                                                <?php
-                                                $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
-                                                while($newItemsForAdding=$getItemForAdding->fetch_assoc()){
-                                                    ?>
-                                                    <option class="" value="<?php echo $newItemsForAdding['id']; ?>">
-                                                        <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']/*.' - PHP'.$newItemsForAdding['item_price']*/); ?>
-                                                    </option>
-                                                <?php } ?>
-                                            </select>
-                                        </td>
-                                        <td><?php echo $newCurrentTransaction['qty']; ?></td>
-                                        <td><?php echo $newCurrentTransaction['price']; ?></td>
+                                        <td class="font-weight-bold"><?php echo $newCurrentTransaction['item_name'];?></td>
+                                        <td><?php echo $newCurrentTransaction['tl_qty']; ?></td>
+                                        <td><?php echo $newCurrentTransaction['tl_price']; ?></td>
                                         <td><?php echo $subTotal = $newCurrentTransaction['subtotal']; ?></td>
                                     </tr>
                                 <!-- Stop listing here -->
@@ -171,7 +162,7 @@ else{
             <!-- End Add Transaction -->
 
             <!-- List of Transactions -->
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4" style="display: none;">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">List of Transactions</h6>
                 </div>

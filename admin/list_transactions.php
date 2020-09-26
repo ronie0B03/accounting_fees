@@ -71,10 +71,10 @@ $getTransactionsList = mysqli_query($mysqli, " SELECT t.student_id, t.full_name,
                                     <td><?php echo $newTransactionList['student_id']; ?></td>
                                     <td><?php echo $newTransactionList['full_name']; ?></td>
                                     <td><?php echo $newTransactionList['transaction_date']; ?></td>
-                                    <td><?php echo $newTransactionList['item_name']; ?></td>
-                                    <td><?php echo $newTransactionList['qty']; ?></td>
-                                    <td>₱ <?php echo $newTransactionList['price']; ?></td>
-                                    <td>₱ <?php echo $newTransactionList['subtotal']; ?></td>
+                                    <td><?php echo $itemName = $newTransactionList['item_name']; ?></td>
+                                    <td><?php echo $qty = $newTransactionList['qty']; ?></td>
+                                    <td>₱ <?php echo $price = $newTransactionList['price']; ?></td>
+                                    <td>₱ <?php echo $subTotal = $newTransactionList['subtotal']; ?></td>
                                     <td>
                                         <!-- Start Drop down Delete here -->
                                         <button class="btn btn-danger btn-secondary dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
@@ -82,7 +82,7 @@ $getTransactionsList = mysqli_query($mysqli, " SELECT t.student_id, t.full_name,
                                         </button>
                                         <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm" style="">
                                             Are you sure you want to void the item? You cannot undo the changes<br/>
-                                            <a href="process_transaction.php?void=<?php echo $newTransactionList['transaction_list_id'].'&qty='.$newTransactionList['qty'].'&item='.$newTransactionList['item_id'].'&transaction_id='.$newTransactionList['transaction_id']; ?>" class='btn btn-danger btn-sm'>
+                                            <a href="process_transaction.php?void=<?php echo $newTransactionList['transaction_list_id'].'&qty='.$newTransactionList['qty'].'&item='.$newTransactionList['item_id'].'&transaction_id='.$newTransactionList['transaction_id'].'&qty='.$qty.'&price='.$price.'&sub_total='.$subTotal.'&item_name='.$itemName; ?>" class='btn btn-danger btn-sm'>
                                                 <i class="fas fa-key"></i> Confirm Void
                                             </a>
                                             <a href="#" class='btn btn-success btn-sm'><i class="far fa-window-close"></i> Cancel</a>

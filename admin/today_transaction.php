@@ -7,7 +7,7 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
 
-$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
+$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE DATE(transaction_date) = CURDATE() ");
 
 ?>
 <title>SPCF - Accounting Office</title>
@@ -24,7 +24,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Transaction</h1>
+                <h1 class="h3 mb-0 text-gray-800">Today's Transaction</h1>
             </div>
 
             <!-- Alert here -->
@@ -42,7 +42,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
             <!-- List of Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">List of Transactions</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">List of Transactions Today (Cancellation of Transaction)</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -57,7 +57,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                                 <th>Total Paid</th>
                                 <th>Status</th>
                                 <th style="display: none;">Total Balance</th>
-                                <th style="display: none;">Actions</th>
+                                <th style="">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -74,19 +74,6 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">
                                         <b><?php echo number_format($balance,2); ?></b>
                                     </td>
-                                    <td style="display:none;">
-                                        <!-- Start Drop down Delete here -->
-                                        <button class="btn btn-danger btn-secondary dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="far fa-trash-alt"></i> Delete
-                                        </button>
-                                        <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm">
-                                            Are you sure you want to delete? You cannot undo the changes<br/>
-                                            <a href="process_transaction.php?delete=<?php echo $newTransaction['id']; ?>" class='btn btn-danger btn-sm'>
-                                                <i class="far fa-trash-alt"></i> Confirm Delete
-                                            </a>
-                                            <a href="#" class='btn btn-success btn-sm'><i class="far fa-window-close"></i> Cancel</a>
-                                        </div>
-                                    </td>
                                     <td>
                                         <?php if($newTransaction['transaction_date']<$date && $newTransaction['status_transact']==0){ ?>
                                             <label class="text-danger">ABANDONED</label>
@@ -97,7 +84,20 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                                         <?php } else if($newTransaction['status_transact']==1){ ?>
                                             <label class="text-success">COMPLETED</label>
                                         <?php } ?>
-                                        </td>
+                                    </td>
+                                    <td style="">
+                                        <!-- Start Drop down Delete here -->
+                                        <button class="btn btn-danger btn-secondary dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-undo-alt"></i> Cancel Order
+                                        </button>
+                                        <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm">
+                                            Do you want to Cancel / Return the transaction? You cannot undo this action<br/>
+                                            <a href="process_transaction.php?cancel=<?php echo $newTransaction['id']; ?>" class='btn btn-danger btn-sm'>
+                                                <i class="far fa-trash-alt"></i> I understand. Cancel / Return the transaction
+                                            </a>
+                                            <a href="#" class='btn btn-success btn-sm'><i class="far fa-window-close"></i> Cancel</a>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php } ?>
                             </tbody>
