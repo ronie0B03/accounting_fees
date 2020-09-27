@@ -6,70 +6,7 @@ $getURI = $_SESSION['getURI'];
 
 $date = date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d H:i:s');
-/*
- * 2020-09-10
-if(isset($_POST['add_item'])){
-    $itemCtrl = mysqli_real_escape_string($mysqli, $_POST['itemCtrl']);
-    $itemCounter = ++$itemCtrl;
-    do{
-        $item = mysqli_real_escape_string($mysqli, $_POST['item'.$itemCtrl]);
-        $getURI = $getURI.'&item'.$itemCtrl.'='.$item;
 
-        $qty = mysqli_real_escape_string($mysqli, $_POST['qty'.$itemCtrl]);
-        $getURI = $getURI.'&qty'.$itemCtrl.'='.$qty;
-
-        //$price = mysqli_real_escape_string($mysqli, $_POST['price'.$itemCtrl]);
-        $getPrice = $mysqli->query("SELECT * FROM inventory WHERE id='$item' ") or die ($mysqli->error());
-        $newPrice = $getPrice->fetch_array();
-        $price = $newPrice['item_price'];
-        $getURI = $getURI.'&price'.$itemCtrl.'='.$price;
-
-        $itemCtrl--;
-    }while($itemCtrl!=0);
-
-    $getURI = $getURI.'&itemCtrl='.$itemCounter;
-    header("location: ".$getURI);
-}
-
-if(isset($_POST['save'])){
-    $itemCtrl = mysqli_real_escape_string($mysqli, $_POST['itemCtrl']);
-    $itemController = 1;
-    $transactionID = mysqli_real_escape_string($mysqli, $_POST['transactionID']);
-
-    $full_name = mysqli_real_escape_string($mysqli, $_POST['full_name']);
-    $student_id = mysqli_real_escape_string($mysqli, $_POST['student_id']);
-    $amount_paid = mysqli_real_escape_string($mysqli, $_POST['amount_paid']);
-
-    $total=0;
-    while($itemCtrl!=0){
-        $item = mysqli_real_escape_string($mysqli, $_POST['item'.$itemCtrl]);
-        $qty = mysqli_real_escape_string($mysqli, $_POST['qty'.$itemCtrl]);
-        $price = mysqli_real_escape_string($mysqli, $_POST['price'.$itemCtrl]);
-
-        if($qty!=NULL){
-            $subTotal = $price*$qty;
-            $mysqli->query("INSERT INTO transaction_lists (transaction_id, item_id, qty, price, transaction_date, subtotal) VALUES('$transactionID', '$item', '$qty', '$price','$date','$subTotal' )") or die($mysqli->error());
-            //Update Inventory
-            $getQtyInventory = mysqli_query($mysqli, "SELECT * FROM inventory WHERE id = '$item' ");
-            $newQtyInventory = $getQtyInventory->fetch_array();
-            $inventoryQty = $newQtyInventory['qty'] - $qty;
-            $mysqli->query("UPDATE inventory SET qty='$inventoryQty' WHERE id='$item' ") or die ($mysqli->error());
-        }
-
-        echo $total += $subTotal;
-
-        $itemController++;
-        $itemCtrl--;
-    }
-
-    $mysqli->query("INSERT INTO transaction (id, full_name, transaction_date, student_id, total_amount, amount_paid) VALUES('$transactionID', '$full_name', '$date', '$student_id', '$total', '$amount_paid' )") or die($mysqli->error());
-
-    $_SESSION['message'] = "Transaction has been saved!";
-    $_SESSION['msg_type'] = "success";
-
-    header('location: transactions.php');
-}
-*/
 if(isset($_POST['add_item'])){
     $transactionID = mysqli_real_escape_string($mysqli,$_POST['transactionID']);
     $item = mysqli_real_escape_string($mysqli, $_POST['item']);
@@ -93,7 +30,7 @@ if(isset($_POST['add_item'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', item_id: '.$item.', transaction_date: '.$date.', subTotal: '.$subTotal;
+    $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', Item ID: '.$item.', Transaction Date: '.$date.', Sub Total: '.$subTotal;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Add Item', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -120,7 +57,7 @@ if(isset($_POST['save'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Transaction - Finish Order. Transaction ID:'.$transactionID.', full_name: '.$full_name.', transaction_date: '.$date.', total: '.$total.', amount_paid: '.$amount_paid;
+    $context = 'Transaction - Finish Order. Transaction ID:'.$transactionID.', Full Name: '.$full_name.', Transaction Date: '.$date.', Total: ₱'.$total.', Amount Paid: ₱'.$amount_paid.' Change: ₱'.$change;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Finish Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -185,7 +122,7 @@ if(isset($_POST['find_student'])){
         $accountCashier = $_SESSION['account_full_name'];
         $logDate = date_default_timezone_set('Asia/Manila');
         $logDate = date('Y-m-d H:i:s');
-        $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', full_name: '.$full_name.', transaction_date: '.$date;
+        $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', Full Name: '.$full_name.', Transaction Date: '.$date;
         $context = mysqli_real_escape_string($mysqli, $context);
         $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Initiate Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -221,7 +158,7 @@ else if(isset($_POST['new_cust'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', full_name: '.$full_name.', transaction_date: '.$date;
+    $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', Full Name: '.$full_name.', Transaction Date: '.$date;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Initiate Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -253,7 +190,7 @@ if(isset($_GET['void'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Void Item In Order. Transaction ID:'.$transaction_id.' Item ID:'.$item_id.' Item Name: '.$item_name.' Price: '.$price.' Sub Total: '.$sub_total;
+    $context = 'Void Item In Order. Transaction ID:'.$transaction_id.' Item ID:'.$item_id.' Item Name: '.$item_name.' Price: ₱'.$price.' Sub Total: ₱'.$sub_total;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Void Item In Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -264,13 +201,53 @@ if(isset($_GET['void'])){
 
 }
 
+//Function Cancel Order
 if(isset($_GET['cancel'])){
     $id = $_GET['cancel'];
-    $getTransactionLists = $mysqli->query(" SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void = '0' ") or die($mysqli->error());
+    $getTransactionLists = $mysqli->query(" SELECT *, tl.qty AS tl_qty, i.qty AS i_qty, tl.transaction_id AS tl_transaction_id
+    FROM transaction_lists tl
+    JOIN inventory i ON i.id = tl.item_id
+    WHERE tl.transaction_id = '$id' AND tl.void = '0' ") or die($mysqli->error());
 
     while($newTransactionLists=$getTransactionLists->fetch_assoc()){
-        print_r($newTransactionLists);
+        $item_id = $newTransactionLists['item_id'];
+        $tl_transaction_id = $newTransactionLists['tl_transaction_id'];
+        $tl_qty = $newTransactionLists['tl_qty'];
+        $i_qty = $newTransactionLists['i_qty'];
+        $i_qty = $i_qty + $tl_qty;
+        //Update item Qty
+        $mysqli->query("UPDATE inventory SET qty='$i_qty' WHERE id='$item_id' ") or die ($mysqli->error());
+        //Update transaction lists
+        $mysqli->query("UPDATE transaction_lists SET void='1' WHERE id='$tl_transaction_id' ") or die ($mysqli->error());
     }
+
+    //Update Transaction
+    $getTransaction = $mysqli->query(" SELECT * FROM transaction WHERE id = '$id' ") or die($mysqli->error());
+    $newTransaction = $getTransaction->fetch_array();
+    $status_transact = $newTransaction['status_transact'];
+    $total_amount = $newTransaction['total_amount'];
+    $student_id = $newTransaction['student_id'];
+    $full_name = $newTransaction['full_name'];
+    if($status_transact==1){
+        $total_amount = $total_amount;
+    }
+    else{
+        // Do nothing for now
+    }
+    $mysqli->query("UPDATE transaction SET status_transact='-1', total_amount='$total_amount' WHERE id='$id' ") or die ($mysqli->error());
+
+    //Add Logs - Void Item In Order
+    $accountCashier = $_SESSION['account_full_name'];
+    $logDate = date_default_timezone_set('Asia/Manila');
+    $logDate = date('Y-m-d H:i:s');
+    $context = 'Transaction - Cancel Transaction. Transaction ID:'.$id.' Student ID:'.$student_id.' Full Name: '.$full_name.' Total Amount Returned: ₱'.$total_amount;
+    $context = mysqli_real_escape_string($mysqli, $context);
+    $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Cancel Transaction', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
+
+    $_SESSION['message'] =  "Transaction with this ID: ".$id." has been nullified.";
+    $_SESSION['msg_type'] = "danger";
+
+    header("location: today_transaction.php");
 }
 
 ?>

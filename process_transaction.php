@@ -92,7 +92,7 @@ if(isset($_POST['add_item'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', item_id: '.$item.', transaction_date: '.$date.', subTotal: '.$subTotal;
+    $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', Item ID: '.$item.', Transaction Date: '.$date.', Subtotal: ₱'.$subTotal;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Add Item', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -119,7 +119,7 @@ if(isset($_POST['save'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Transaction - Finish Order. Transaction ID:'.$transactionID.', full_name: '.$full_name.', transaction_date: '.$date.', total: '.$total.', amount_paid: '.$amount_paid;
+    $context = 'Transaction - Finish Order. Transaction ID:'.$transactionID.', Full Name: '.$full_name.', Transaction Date: '.$date.', Total: ₱'.$total.', Amount Paid: ₱'.$amount_paid;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Finish Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -220,7 +220,7 @@ else if(isset($_POST['new_cust'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', full_name: '.$full_name.', transaction_date: '.$date;
+    $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', Full Name: '.$full_name.', Transaction Date: '.$date;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Initiate Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 

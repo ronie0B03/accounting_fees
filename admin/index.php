@@ -11,6 +11,10 @@ $lowStock = false;
 $getLowStock = mysqli_query($mysqli, "SELECT * FROM inventory WHERE qty <= 10");
 if($getLowStock->num_rows>=1){
     $lowStock = true;
+    $lowStockText = "Items that are low in stock:";
+    while($newLowStock=$getLowStock->fetch_assoc()){
+        $lowStockText = $lowStockText.' '.strtoupper($newLowStock['item_name'].',');
+    }
 }
 $date = date('Y-m-d');
 $from_date = $date.' 00:00:00';
@@ -21,7 +25,7 @@ $newTotalTransaction = $getTotalTransaction->fetch_array();
 $totalTransaction = $newTotalTransaction['total_transaction'];
 
 $getTotalEarnings = mysqli_query($mysqli, "SELECT SUM(total_amount) AS total_earnings FROM transaction
-WHERE transaction_date BETWEEN '$from_date' AND '$to_date' ");
+WHERE (transaction_date BETWEEN '$from_date' AND '$to_date') AND status_transact = '1' ");
 $newTotalEarnings = $getTotalEarnings->fetch_array();
 $totalEarnings = $newTotalEarnings['total_earnings'];
 
@@ -33,9 +37,9 @@ $total_items = $getTotalItems['total_items'];
 
 //Get Monthly Sales;
 $getMonthlySales = mysqli_query($mysqli, "SELECT YEAR(transaction_date) as SalesYear, MONTH(transaction_date) as SalesMonth, SUM(total_amount) AS TotalSales
-FROM transaction
+FROM transaction WHERE status_transact = '1'  
 GROUP BY YEAR(transaction_date), MONTH(transaction_date)
-ORDER BY YEAR(transaction_date), MONTH(transaction_date)");
+ORDER BY YEAR(transaction_date), MONTH(transaction_date) ");
 $counter=0;
 $month[-1] = 0;
 while($newMonthlySales=$getMonthlySales->fetch_assoc()){
@@ -44,8 +48,8 @@ while($newMonthlySales=$getMonthlySales->fetch_assoc()){
 
 //Get Earnings per cashier counter
 $getIndividualEarning = mysqli_query($mysqli, "SELECT SUM(total_amount) AS individualEarning, cashier_account
-FROM transaction WHERE transaction_date BETWEEN '$from_date' AND '$to_date'
-GROUP BY cashier_account");
+FROM transaction WHERE (transaction_date BETWEEN '$from_date' AND '$to_date') AND status_transact = '1'
+GROUP BY cashier_account ");
 ?>
 <title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
@@ -69,7 +73,7 @@ GROUP BY cashier_account");
             <?php if ($lowStock) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    Inventory is low in stock. Please restock. Thank you
+                    <a><?php echo $lowStockText; ?>. Please restock. Thank you</a>
                 </div>
             <?php } ?>
             <!-- End Alert here -->

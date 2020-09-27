@@ -6,11 +6,15 @@ include ("dbh.php");
 $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
-
+$account_full_name = $_SESSION['account_full_name'];
 $lowStock = false;
 $getLowStock = mysqli_query($mysqli, "SELECT * FROM inventory WHERE qty <= 10");
 if($getLowStock->num_rows>=1){
     $lowStock = true;
+    $lowStockText = "Items that are low in stock:";
+    while($newLowStock=$getLowStock->fetch_assoc()){
+        $lowStockText = $lowStockText.' '.strtoupper($newLowStock['item_name'].',');
+    }
 }
 $date = date('Y-m-d');
 $from_date = $date.' 00:00:00';
@@ -21,7 +25,7 @@ $newTotalTransaction = $getTotalTransaction->fetch_array();
 $totalTransaction = $newTotalTransaction['total_transaction'];
 
 $getTotalEarnings = mysqli_query($mysqli, "SELECT SUM(total_amount) AS total_earnings FROM transaction
-WHERE transaction_date BETWEEN '$from_date' AND '$to_date' ");
+WHERE (transaction_date BETWEEN '$from_date' AND '$to_date') AND status_transact = '1' AND cashier_account = '$account_full_name ' ");
 $newTotalEarnings = $getTotalEarnings->fetch_array();
 $totalEarnings = $newTotalEarnings['total_earnings'];
 
@@ -54,7 +58,7 @@ $total_items = $getTotalItems['total_items'];
             <?php if ($lowStock) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    Inventory is low in stock. Please restock. Thank you
+                    <a><?php echo $lowStockText; ?>. Please restock. Thank you</a>
                 </div>
             <?php } ?>
             <!-- End Alert here -->
