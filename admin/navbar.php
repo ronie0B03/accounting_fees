@@ -65,6 +65,34 @@
                 </div>
             </li>
 
+            <!-- Students -->
+            <li class="nav-item" style="">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudent" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+                <div id="collapseStudent" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="student.php">Add / Import Students</a>
+                        <a class="collapse-item" href="uploads.php">Uploads</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Students -->
+            <li class="nav-item" style="">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayable" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-receipt"></i>
+                    <span>Payables</span>
+                </a>
+                <div id="collapsePayable" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="payable.php">Classify Payables per Department</a>
+                        <a class="collapse-item" href="report_receivables.php">Detailed Report of Receivables</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Accounts -->
             <li class="nav-item" style="display:none;">
                 <a class="nav-link" href="#">

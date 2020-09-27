@@ -11,6 +11,9 @@ if (isset($_POST['login'])) {
         $_SESSION['account_full_name'] = $newAccoount['full_name'];
         $_SESSION['account_role'] = $newAccoount['role'];
         $_SESSION['account_id'] = $newAccoount['id'];
+
+        $_SESSION['active_school_year'] = '2020-2021';
+
         header("location: index.php");
     }
     else

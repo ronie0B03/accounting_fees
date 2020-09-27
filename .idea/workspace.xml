@@ -20,12 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/admin/Template/Template.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/Template/sample_bulk_50k.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/excel.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/payable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_payable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_student.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/report_receivables.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/student.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/uploads.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/spcf_accounting_fees 2020-09-16.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/spcf_accounting_fees 2020-09-27.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/process_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/today_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/today_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/process_login.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/process_login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/topbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/topbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/spcf_accounting_fees_2020_09_16.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/process_login.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/topbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/topbar.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +68,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\accounting_fees\admin" />
       <recent name="$PROJECT_DIR$/admin" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -97,7 +110,7 @@
       <workItem from="1599961817301" duration="5280000" />
       <workItem from="1600319283865" duration="847000" />
       <workItem from="1601108050056" duration="5745000" />
-      <workItem from="1601167502191" duration="5626000" />
+      <workItem from="1601167502191" duration="22863000" />
     </task>
     <servers />
   </component>
@@ -129,16 +142,20 @@
     </state>
     <state x="648" y="274" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1016@0.23.1920.1016" timestamp="1596186062408" />
     <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597978022628" />
+    <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1601186178357">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1601186178357" />
     <state x="719" y="446" key="NewPhpFileDialog" timestamp="1598759429448">
       <screen x="0" y="23" width="1920" height="1018" />
     </state>
     <state x="539" y="370" key="NewPhpFileDialog/0.23.1440.834@0.23.1440.834" timestamp="1596099049363" />
     <state x="719" y="446" key="NewPhpFileDialog/0.23.1920.1018@0.23.1920.1018" timestamp="1598759429448" />
     <state x="719" y="447" key="NewPhpFileDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597898484937" />
-    <state x="295" y="70" key="SettingsEditor" timestamp="1601167525962">
+    <state x="295" y="70" key="SettingsEditor" timestamp="1601184040705">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="295" y="70" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1601167525962" />
+    <state x="295" y="70" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1601184040705" />
     <state x="221" y="79" key="SettingsEditor/0.23.1440.834@0.23.1440.834" timestamp="1596100491714" />
     <state x="1735" y="93" key="SettingsEditor/0.23.1440.836/1440.23.1920.1057@1440.23.1920.1057" timestamp="1601108109136" />
     <state x="295" y="91" key="SettingsEditor/0.23.1920.1020@0.23.1920.1020" timestamp="1597719038309" />

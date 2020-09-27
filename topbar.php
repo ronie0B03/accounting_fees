@@ -20,6 +20,8 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-white small">ACTIVE SCHOOL YEAR: <?php echo ucfirst($_SESSION['active_school_year']); ?></span>
+                <div class="topbar-divider d-none d-sm-block"></div>
                 <span class="mr-2 d-none d-lg-inline text-white small"><?php echo ucfirst($_SESSION['account_full_name']); ?></span>
                 <i class="fas fa-user-circle"></i>
             </a>
