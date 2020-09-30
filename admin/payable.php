@@ -8,7 +8,7 @@ $active_school_year = $_SESSION['active_school_year'];
 $getItems = mysqli_query($mysqli, "SELECT * FROM inventory ");
 
 //Get Payables
-$getPayable = mysqli_query($mysqli, "SELECT * FROM payable p
+$getPayable = mysqli_query($mysqli, "SELECT *,p.id AS payable_id FROM payable p
 JOIN inventory i
 ON i.id = p.item_id ");
 
@@ -107,7 +107,7 @@ ON i.id = p.item_id ");
                                     </td>
                                     <td>
                                         <select class="form-control" name="school_year">
-                                            <option value="2020-2021" selected>2020-2021</option>
+                                            <option value="<?php echo $active_school_year; ?>" selected>2020-2021</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -131,6 +131,7 @@ ON i.id = p.item_id ");
                         <table class="table table-bordered" id="payableTable">
                             <thead>
                                 <tr>
+                                    <th>ID/th>
                                     <th>Name / Service</th>
                                     <th>Department</th>
                                     <th>Level</th>
@@ -139,11 +140,24 @@ ON i.id = p.item_id ");
                             </thead>
                             <tbody>
                             <?php while($newPayable=$getPayable->fetch_assoc()){ ?>
-                                <tr>
-                                    <td><?php echo strtoupper($newPayable['item_name']);?></td>
-                                    <td><?php echo strtoupper($newPayable['department']);?></td>
-                                    <td><?php echo $newPayable['level'];?></td>
-                                    <td><?php echo $newPayable['school_year'];?></td>
+                                    <td>
+                                        <a href="report_receivables_classified.php?id=<?php echo $newPayable['payable_id']; ?>" target="_blank">
+                                        <?php echo strtoupper($newPayable['payable_id']); ?>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="report_receivables_classified.php?id=<?php echo $newPayable['payable_id']; ?>" target="_blank">
+                                        <?php echo strtoupper($newPayable['item_name']); ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="report_receivables_classified.php?id=<?php echo $newPayable['payable_id']; ?>" target="_blank">
+                                        <?php echo strtoupper($newPayable['department']); ?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo $newPayable['level']; ?></td>
+                                    <td><?php echo $newPayable['school_year']; ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>

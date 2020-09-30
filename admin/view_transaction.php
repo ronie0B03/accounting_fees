@@ -51,7 +51,10 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
             <!-- View Individual Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">View Transaction</h6>
+                    <span class="h-6 m-0 font-weight-bold text-primary">View Transaction</span>
+                    <?php if($newTransaction['status_transact']=='-1'){ ?>
+                        <span class="h-6 m-0 font-weight-bold text-danger float-right">CANCELLED ORDER</span>
+                    <?php } ?>
                 </div>
                 <div class="card-body">
                     <span class="float-right">Control ID: <b><?php echo $id;?></b></span>

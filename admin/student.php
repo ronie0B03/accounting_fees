@@ -108,7 +108,7 @@ $getStudents = mysqli_query($mysqli, "SELECT * FROM student WHERE school_year = 
                                     </td>
                                     <td>
                                         <select class="form-control" name="school_year">
-                                            <option value="2020-2021" selected>2020-2021</option>
+                                            <option value="<?php echo $active_school_year; ?>" selected>2020-2021</option>
                                         </select>
                                     </td>
                                 </tr>

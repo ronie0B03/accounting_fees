@@ -61,6 +61,7 @@ $getTransactionsList = mysqli_query($mysqli, " SELECT t.student_id, t.full_name,
                                     <th>Qty</th>
                                     <th>Price</th>
                                     <th>Subtotal</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -75,6 +76,11 @@ $getTransactionsList = mysqli_query($mysqli, " SELECT t.student_id, t.full_name,
                                     <td><?php echo $qty = $newTransactionList['qty']; ?></td>
                                     <td>₱ <?php echo $price = $newTransactionList['price']; ?></td>
                                     <td>₱ <?php echo $subTotal = $newTransactionList['subtotal']; ?></td>
+                                    <td>
+                                    <?php
+                                    if($newTransactionList['transaction_date']<$date){ ?>
+                                        <span class="text-warning">ABANDONED</span>
+                                    <?php } ?></td>
                                     <td>
                                         <!-- Start Drop down Delete here -->
                                         <button class="btn btn-danger btn-secondary dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
