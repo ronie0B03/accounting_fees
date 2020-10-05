@@ -140,7 +140,7 @@ $getStudents = mysqli_query($mysqli, "SELECT * FROM student WHERE school_year = 
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input class="form-control" accept=".csv" required name="excelFile" type="file" id="excelFile"/></td>
+                                    <td><input class="form-control-file" accept=".csv" required name="excelFile" type="file" id="excelFile"/></td>
                                     <td><input type="text" name="upload_name" class="form-control" required placeholder="ex: Section and School Year" /></td>
                                     <td>
                                         <button class="btn btn-sm btn-primary m-1" name="import_students" type="submit"><i class="far fa-save" ></i> Save</button>
