@@ -86,6 +86,12 @@ if (isset($_SESSION['username'])) {
                                     </div>
                                     <button class="btn btn-primary btn-block" type="submit" name="login">Login</button>
                                 </form>
+                                <hr>
+                                <div class="copyright text-center my-auto">
+                                    <span>Copyright &copy; SYSTEMS PLUS COLLEGE FOUNDATION - <?php echo date('Y'); ?></span>
+                                    <br/>
+                                    <img src='../img/logo.png' height="50px;">
+                                    <img src='../img/favicon.png' height="40px;">
                             </div>
                         </div>
                     </div>
