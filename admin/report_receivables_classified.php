@@ -71,7 +71,7 @@ WHERE p.id = '$payableID' ");
                             LEFT JOIN transaction t
                             ON t.student_id = s.student_id
                             LEFT JOIN transaction_lists tl
-                            ON tl.transaction_id = t.id AND tl.item_id = '$item_id'
+                            ON tl.transaction_id = t.id AND tl.item_id = '$item_id' AND tl.void <> 1
                             LEFT JOIN inventory i
                             ON tl.item_id = i.id 
                             WHERE s.dept = '$department' AND s.level = '$level' AND s.school_year = '$active_school_year' ");

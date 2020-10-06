@@ -20,13 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin/report_individual.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/spcf_accounting_fees 2020-10-06 (Truncated).sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/navbar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/process_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/process_report.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/process_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/report.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/report.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/report_receivables.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/report_receivables.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/report_receivables_classified.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/report_receivables_classified.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +100,7 @@
       <workItem from="1601274776587" duration="400000" />
       <workItem from="1601376618444" duration="2866000" />
       <workItem from="1601604572563" duration="298000" />
-      <workItem from="1601979642927" duration="4399000" />
+      <workItem from="1601979642927" duration="4746000" />
     </task>
     <servers />
   </component>
