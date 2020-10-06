@@ -211,14 +211,15 @@ if(isset($_GET['cancel'])){
 
     while($newTransactionLists=$getTransactionLists->fetch_assoc()){
         $item_id = $newTransactionLists['item_id'];
-        $tl_transaction_id = $newTransactionLists['tl_transaction_id'];
+        echo $tl_transaction_id = $newTransactionLists['tl_transaction_id'];
         $tl_qty = $newTransactionLists['tl_qty'];
         $i_qty = $newTransactionLists['i_qty'];
         $i_qty = $i_qty + $tl_qty;
         //Update item Qty
         $mysqli->query("UPDATE inventory SET qty='$i_qty' WHERE id='$item_id' ") or die ($mysqli->error());
         //Update transaction lists
-        $mysqli->query("UPDATE transaction_lists SET void='1' WHERE id='$tl_transaction_id' ") or die ($mysqli->error());
+        $mysqli->query("UPDATE transaction_lists SET void='1' WHERE transaction_id='$tl_transaction_id' ") or die ($mysqli->error());
+
     }
 
     //Update Transaction

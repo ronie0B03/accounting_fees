@@ -15,7 +15,11 @@ if(isset($_GET['from_date'])){
     $dateExist = true;
     $from_date = $_GET['from_date'].' 00:00:00';
     $to_date  = $_GET['to_date'].' 23:59:59';
-    $getTransactions = mysqli_query($mysqli, " SELECT * FROM transaction WHERE (transaction_date BETWEEN '$from_date' AND '$to_date') AND status_transact = '1'  ");
+    $getTransactions = mysqli_query($mysqli, " SELECT *, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal
+  FROM transaction_lists tl
+  JOIN inventory i ON i.id = tl.item_id
+  WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
+  AND tl.void = 0 GROUP BY tl.item_id  ");
 }
 //print_r($getTransactions);
 ?>
@@ -33,7 +37,7 @@ if(isset($_GET['from_date'])){
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Transaction Report</h1>
+                <h1 class="h3 mb-0 text-gray-800">Transaction Report (Item)</h1>
             </div>
 
             <!-- Alert here -->
@@ -78,7 +82,7 @@ if(isset($_GET['from_date'])){
                                         </select>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-info" type="submit" name="get_report">Proceed</button>
+                                        <button class="btn btn-sm btn-info" type="submit" name="get_report_individual" >Proceed</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -101,14 +105,9 @@ if(isset($_GET['from_date'])){
                         <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>Control ID</th>
-                                <th>Student ID</th>
-                                <th>Full Name</th>
-                                <th>Transaction Date and Time</th>
-                                <th>Total Amount</th>
-                                <th>Amount Paid</th>
-                                <th>Change</th>
-                                <th>Cashier Account</th>
+                                <th>Item Name</th>
+                                <th>Qty</th>
+                                <th>Sub Total</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -116,22 +115,17 @@ if(isset($_GET['from_date'])){
                             $accumulatedEarnings = 0;
                             while($newTransactions = $getTransactions->fetch_assoc()){ ?>
                                 <tr>
-                                    <td><?php echo $newTransactions['id']; ?></td>
-                                    <td><?php echo $newTransactions['student_id']; ?></td>
-                                    <td><?php echo $newTransactions['full_name']; ?></td>
-                                    <td><?php echo $newTransactions['transaction_date']; ?></td>
-                                    <td>₱ <?php echo number_format($newTransactions['total_amount'],2); ?></td>
-                                    <td>₱ <?php echo number_format($newTransactions['amount_paid'],2); ?></td>
-                                    <td>₱ <?php echo number_format($newTransactions['amount_change'],2); ?></td>
-                                    <td><?php echo $newTransactions['cashier_account']; ?></td>
+                                    <td><?php echo $newTransactions['item_name']; ?></td>
+                                    <td><?php echo $newTransactions['sum_qty']; ?></td>
+                                    <td>₱ <?php echo number_format($newTransactions['sum_subTotal'],2); ?></td>
                                 </tr>
                             <?php
-                            $accumulatedEarnings = $accumulatedEarnings + $newTransactions['total_amount'];
+
                             } ?>
                             </tbody>
                         </table>
                         <div style="text-align: center;" class="font-weight-bold">
-                            Total Earnings on selected dates: <a class="text-success">₱<?php echo number_format($accumulatedEarnings,2); ?></a>
+
                         </div>
                     </div>
                 </div>

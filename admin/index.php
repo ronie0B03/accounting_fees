@@ -264,7 +264,7 @@ GROUP BY cashier_account ");
                     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: [<?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo $month[1]; ?>, <?php echo $month[2]; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>],
+                    data: [<?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo 0; ?>, <?php echo $month[1]; ?>, <?php echo $month[2]; ?>, <?php echo $month[3]; ?>, <?php echo 0; ?>, <?php echo 0; ?>],
                 }],
             },
             options: {

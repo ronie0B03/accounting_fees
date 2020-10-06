@@ -116,7 +116,7 @@
                 <div id="collapseReports" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="report.php">Consolidated Reports</a>
-                        <a class="collapse-item" href="report.php">Individual Item Report</a>
+                        <a class="collapse-item" href="report_individual.php">Individual Item Report</a>
                     </div>
                 </div>
             </li>
@@ -128,20 +128,6 @@
                     <span>Activity Log</span></a>
             </li>
 
-            <!-- Nav Item - Reports -->
-            <li class="nav-item" style="display: none;">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Reports</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Type:</h6>
-                        <a class="collapse-item" href="report.php"><i class="fas fa-fw fa-table"></i> Sales Report</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item" style="display: none">
