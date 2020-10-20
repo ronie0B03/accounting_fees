@@ -37,7 +37,8 @@ if(isset($_POST['add_item'])){
     $_SESSION['message'] = "Item has been added!";
     $_SESSION['msg_type'] = "success";
 
-    header("location: ".$getURI);
+    #header("location: ".$getURI); //2020-10-20
+    header("location: transactions.php?account");
 
 }
 

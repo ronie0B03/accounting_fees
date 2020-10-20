@@ -55,13 +55,16 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                                 <th style="display: none;">Phone Num</th>
                                 <th>Total Amount</th>
                                 <th>Total Paid</th>
+                                <th>Cashier</th>
                                 <th>Status</th>
                                 <th style="display: none;">Total Balance</th>
                                 <th style="display: none;">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php while($newTransaction = $getTransaction->fetch_assoc()){
+                            <?php
+                                print_r($getTransaction);
+                                while($newTransaction = $getTransaction->fetch_assoc()){
                                 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                                 ?>
                                 <tr>
@@ -87,6 +90,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                                             <a href="#" class='btn btn-success btn-sm'><i class="far fa-window-close"></i> Cancel</a>
                                         </div>
                                     </td>
+                                    <td><?php echo $newTransaction['cashier_account']; ?></td>
                                     <td>
                                         <?php if($newTransaction['transaction_date']<$date && $newTransaction['status_transact']==0){ ?>
                                             <label class="text-danger">ABANDONED</label>

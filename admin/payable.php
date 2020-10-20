@@ -131,7 +131,7 @@ ON i.id = p.item_id ");
                         <table class="table table-bordered" id="payableTable">
                             <thead>
                                 <tr>
-                                    <th>ID/th>
+                                    <th>ID</th>
                                     <th>Name / Service</th>
                                     <th>Department</th>
                                     <th>Level</th>
