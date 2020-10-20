@@ -71,6 +71,7 @@ $getStudents = mysqli_query($mysqli, "SELECT * FROM student WHERE school_year = 
                                             <option value="com">COM</option>
                                             <option value="con">CON</option>
                                             <option value="chm">CHM</option>
+                                            <option value="cassed">CASSED</option>
                                         </select>
                                     </td>
                                     <td>
