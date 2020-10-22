@@ -63,7 +63,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                             </thead>
                             <tbody>
                             <?php
-                                print_r($getTransaction);
+                                //print_r($getTransaction);
                                 while($newTransaction = $getTransaction->fetch_assoc()){
                                 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                                 ?>

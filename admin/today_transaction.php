@@ -7,7 +7,8 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
 
-$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE DATE(transaction_date) = CURDATE() AND status_transact != '-1' ");
+//$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE DATE(transaction_date) = CURDATE() AND status_transact != '-1' ");
+$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
 
 ?>
 <title>SPCF - Accounting Office</title>
