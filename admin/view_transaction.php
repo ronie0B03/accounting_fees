@@ -17,8 +17,6 @@ $newTransaction = $getTransaction->fetch_array();
 
 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
-
-
 if($newTransaction['status_transact']=='-1'){
     $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void='1' ");
 }
