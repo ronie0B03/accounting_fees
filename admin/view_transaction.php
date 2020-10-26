@@ -17,7 +17,14 @@ $newTransaction = $getTransaction->fetch_array();
 
 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
-$getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void='0' ");
+
+
+if($newTransaction['status_transact']=='-1'){
+    $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void='1' ");
+}
+else{
+    $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void='0' ");
+}
 ?>
 <title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
