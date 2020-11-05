@@ -21,7 +21,6 @@ $newTransaction = $getTransaction->fetch_array();
 
 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
-$getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void = '0' ");
 ?>
 <title>SPCF Officie Receipt. Control ID: <?php echo $id; ?>  AR No: <?php echo sprintf('%08d',$receipt_id); ?> </title>
 <!-- Content Wrapper -->
@@ -32,7 +31,12 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
         <?php
         include('topbar.php');
         ?>
+        <?php
+        $counter = 0;
+        while($counter<2){
+            ?>
         <!-- Begin Page Content -->
+        <p style="page-break-before: always">
         <div class="container-fluid">
             <br>
             <br>
@@ -45,20 +49,8 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
                 <div style="text-align: center;">Mc Arthur Hi-Way Balibago, Angeles City, Pampanga</div>
             </div>
 
-            <!-- Alert here -->
-            <?php if (isset($_SESSION['message'])) { ?>
-                <div class="alert alert-<?= $_SESSION['msg_type'] ?> alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                    ?>
-                </div>
-            <?php } ?>
-            <!-- End Alert here -->
-
             <!-- View Individual Transactions -->
-            <div class="card shadow mb-4">
+            <div class="mb-4">
                 <div class="card-header py-3">
                     <span class="h6 m-0 font-weight-bold text-danger">Transaction Control ID / AR No: <?php echo sprintf('%08d',$id); ?></span>
                     <span class=" h6 m-0 font-weight-bold text-danger float-right" style="display: none">AR No: <?php echo sprintf('%08d',$receipt_id); ?></span>
@@ -84,6 +76,7 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
                             </thead>
                             <tbody>
                             <?php
+                            $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' AND void = '0' ");
                             $total = 0;
                             while ($newTransactionList=$getTransactionLists->fetch_assoc()){
                                 $item_id = $newTransactionList['item_id'];
@@ -118,7 +111,12 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
                         <span class="float-right"><h6><b style="display: none; color: <?php if($balance<0){ echo 'red';}else{echo 'green';} ?>">Balance: <?php echo $balance; ?></b></h6></span>
                         <div style="">
                             <span class="float-right">Cashier & Signature: <u>_____<?php echo ucfirst($_SESSION['account_full_name']); ?>_____</u></span>
-                            <a href="view_transaction.php?id=<?php echo $id; ?>" class="text-white btn btn-sm btn-info float-left"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                            <a style="display: none;" href="view_transaction.php?id=<?php echo $id; ?>" class="text-white btn btn-sm btn-info float-left"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                            <?php if($counter==1){ ?>
+                                STUDENT'S COPY
+                            <?php } else { ?>
+                                ACCOUNTING OFFICE'S COPY
+                            <?php } ?>
                         </div>
 
                     </div>
@@ -127,6 +125,9 @@ $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WH
             <!-- End View Individual Transactions -->
 
         </div>
+        <?php $counter++;
+        }
+        ?>
         <!-- /.container-fluid -->
 
     </div>
