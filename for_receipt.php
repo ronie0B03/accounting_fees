@@ -7,7 +7,10 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
 
-$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
+//echo
+$cashier_account_full_name = $_SESSION['account_full_name'];
+
+$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier_account = '$cashier_account_full_name' ");
 
 ?>
 <title>SPCF - Accounting Office</title>
@@ -60,7 +63,9 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
                             </tr>
                             </thead>
                             <tbody>
-                            <?php while($newTransaction = $getTransaction->fetch_assoc()){
+                            <?php
+                                $total = 0;
+                                while($newTransaction = $getTransaction->fetch_assoc()){
                                 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                                 ?>
                                 <tr>
@@ -87,10 +92,12 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
                                         </div>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php
+                            $total+=$newTransaction['amount_paid'];
+                            } ?>
                             </tbody>
                         </table>
-
+                        <div style="text-align: center;" class="font-weight-bold">Grand Total: <?php echo '₱'.number_format($total, 2); ?></div>
                     </div>
                 </div>
             </div>

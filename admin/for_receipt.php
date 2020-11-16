@@ -7,8 +7,13 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
 
-$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
-
+$getUsers = mysqli_query($mysqli, "SELECT * FROM accounts WHERE role = 'user' ");
+$userExist=false;
+if(isset($_GET['user'])){
+    $userExist = true;
+    $user=$_GET['user'];
+    $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier_account = '$user' ");
+}
 ?>
 <title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
@@ -38,7 +43,11 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                 </div>
             <?php } ?>
             <!-- End Alert here -->
+            Cashiers:<br/>
 
+            <?php while($newUsers=$getUsers->fetch_assoc()){?>
+                <a href="for_receipt.php?user=<?php echo $newUsers['full_name'];?>"><?php echo $newUsers['full_name']; ?></a><br>
+            <?php } ?>
             <!-- List of Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -64,6 +73,8 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                             <tbody>
                             <?php
                                 //print_r($getTransaction);
+                                $total=0;
+                                if($userExist){
                                 while($newTransaction = $getTransaction->fetch_assoc()){
                                 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                                 ?>
@@ -103,10 +114,13 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
                                         <?php } ?>
                                         </td>
                                 </tr>
-                            <?php } ?>
+                            <?php
+                                    $total+= $newTransaction['amount_paid'];
+                                }
+                                }?>
                             </tbody>
                         </table>
-
+                        <div style="text-align: center;" class="font-weight-bold">Grand Total: <?php echo '₱'.number_format($total, 2); ?></div>
                     </div>
                 </div>
             </div>
