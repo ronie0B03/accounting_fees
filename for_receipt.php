@@ -56,6 +56,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
                                 <th>Control ID</th>
                                 <th>Full Name</th>
                                 <th style="display: none;">Phone Num</th>
+                                <th>Items Bought / Paid</th>
                                 <th>Total Amount</th>
                                 <th>Total Paid</th>
                                 <th style="display: none;">Total Balance</th>
@@ -67,12 +68,26 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
                                 $total = 0;
                                 while($newTransaction = $getTransaction->fetch_assoc()){
                                 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
+                                $id = $newTransaction['id'];
+                                $getItems = mysqli_query($mysqli, "SELECT * FROM transaction_lists tl 
+                                JOIN inventory i
+                                ON tl.item_id = i.id
+                                WHERE transaction_id = '$id' ");
                                 ?>
                                 <tr>
                                     <td><?php echo $newTransaction['transaction_date']; ?></td>
-                                    <td><a href="view_transaction.php?id=<?php echo $newTransaction['id']; ?>" target="_blank"><?php echo $newTransaction['id']; ?></a></td>
-                                    <td><a href="view_transaction.php?id=<?php echo $newTransaction['id']; ?>" target="_blank"><?php echo $newTransaction['full_name']; ?></a></td>
+                                    <td><a href="view_transaction.php?id=<?php echo $id; ?>" target="_blank"><?php echo $id; ?></a></td>
+                                    <td><a href="view_transaction.php?id=<?php echo $id; ?>" target="_blank"><?php echo $newTransaction['full_name']; ?></a></td>
                                     <td style="display: none;"><?php echo $newTransaction['phone_num']; ?></td>
+                                    <td><?php
+                                        if($newTransaction['amount_paid']==0){
+                                            echo '<span class="text-danger ">This transaction is cancelled.</span>';
+                                        }
+                                        $itemCounter=0;
+                                        while($newItems = $getItems->fetch_assoc()){
+                                            echo ++$itemCounter.'. '.$newItems['item_name'].'<br/>';
+                                        }?>
+                                    </td>
                                     <td><?php echo '₱'.number_format($newTransaction['total_amount'],2); ?></td>
                                     <td><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">
