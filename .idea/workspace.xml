@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/admin/report_invididual_item.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/for_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/for_receipt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/for_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/for_receipt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/report_individual.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/report_individual.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +102,7 @@
       <workItem from="1601979642927" duration="4746000" />
       <workItem from="1603079271127" duration="1341000" />
       <workItem from="1603156655640" duration="1107000" />
-      <workItem from="1606183886236" duration="1464000" />
+      <workItem from="1606183886236" duration="3139000" />
     </task>
     <servers />
   </component>
@@ -132,7 +132,6 @@
     <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1597978022628">
       <screen x="0" y="23" width="1920" height="1020" />
     </state>
-    <state x="648" y="274" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1016@0.23.1920.1016" timestamp="1596186062408" />
     <state x="648" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597978022628" />
     <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1601186178357">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -141,14 +140,12 @@
     <state x="719" y="446" key="NewPhpFileDialog" timestamp="1598759429448">
       <screen x="0" y="23" width="1920" height="1018" />
     </state>
-    <state x="539" y="370" key="NewPhpFileDialog/0.23.1440.834@0.23.1440.834" timestamp="1596099049363" />
     <state x="719" y="446" key="NewPhpFileDialog/0.23.1920.1018@0.23.1920.1018" timestamp="1598759429448" />
     <state x="719" y="447" key="NewPhpFileDialog/0.23.1920.1020@0.23.1920.1020" timestamp="1597898484937" />
     <state x="295" y="70" key="SettingsEditor" timestamp="1601184040705">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="295" y="70" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1601184040705" />
-    <state x="221" y="79" key="SettingsEditor/0.23.1440.834@0.23.1440.834" timestamp="1596100491714" />
     <state x="1735" y="93" key="SettingsEditor/0.23.1440.836/1440.23.1920.1057@1440.23.1920.1057" timestamp="1601108109136" />
     <state x="295" y="91" key="SettingsEditor/0.23.1920.1020@0.23.1920.1020" timestamp="1597719038309" />
     <state x="526" y="171" width="586" height="735" key="find.popup" timestamp="1601378244011">
@@ -159,10 +156,11 @@
       <screen x="0" y="23" width="1920" height="1020" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.23.1920.1020@0.23.1920.1020" timestamp="1597983921388" />
-    <state x="654" y="255" width="670" height="701" key="search.everywhere.popup" timestamp="1603080833064">
-      <screen x="43" y="23" width="1877" height="1057" />
+    <state x="657" y="257" width="670" height="700" key="search.everywhere.popup" timestamp="1606188892892">
+      <screen x="48" y="25" width="1872" height="1055" />
     </state>
     <state x="625" y="247" width="670" height="676" key="search.everywhere.popup/0.23.1920.1020@0.23.1920.1020" timestamp="1597983683337" />
     <state x="654" y="255" width="670" height="701" key="search.everywhere.popup/1920.23.1440.877/43.23.1877.1057@43.23.1877.1057" timestamp="1603080833064" />
+    <state x="657" y="257" width="670" height="700" key="search.everywhere.popup/1920.25.1440.875/48.25.1872.1055@48.25.1872.1055" timestamp="1606188892892" />
   </component>
 </project>

@@ -15,7 +15,7 @@ if(isset($_GET['from_date'])){
     $dateExist = true;
     $from_date = $_GET['from_date'].' 00:00:00';
     $to_date  = $_GET['to_date'].' 23:59:59';
-    $getTransactions = mysqli_query($mysqli, " SELECT *, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal
+    $getTransactions = mysqli_query($mysqli, " SELECT *, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id
   FROM transaction_lists tl
   JOIN inventory i ON i.id = tl.item_id
   WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
@@ -115,7 +115,7 @@ if(isset($_GET['from_date'])){
                             $accumulatedEarnings = 0;
                             while($newTransactions = $getTransactions->fetch_assoc()){ ?>
                                 <tr>
-                                    <td><?php echo $newTransactions['item_name']; ?></td>
+                                    <td><a href="report_invididual_item.php?from_date=<?php echo $from_date;?>&to_date=<?php echo $to_date; ?>&item_id=<?php echo  $newTransactions['item_id'];?>"><?php echo $newTransactions['item_name']; ?></a></td>
                                     <td><?php echo $newTransactions['sum_qty']; ?></td>
                                     <td>₱ <?php echo number_format($newTransactions['sum_subTotal'],2); ?></td>
                                 </tr>
