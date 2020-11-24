@@ -20,9 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin/report_invididual_item.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/process_series_receipts.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/series_receipt.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/report_individual.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/report_individual.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/for_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/for_receipt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/for_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/for_receipt.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

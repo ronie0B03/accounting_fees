@@ -70,7 +70,7 @@ if(isset($_GET['user'])){
                                 <th style="display: none;">Phone Num</th>
                                 <th>Total Paid</th>
                                 <th>Total Amount</th>
-                                <th>Total Paid</th>
+                                <th style="display: none;">Total Paid</th>
                                 <th>Cashier</th>
                                 <th>Status</th>
                                 <th style="display: none;">Total Balance</th>
@@ -105,7 +105,7 @@ if(isset($_GET['user'])){
                                         }?>
                                     </td>
                                     <td><?php echo '₱'.number_format($newTransaction['total_amount'],2); ?></td>
-                                    <td><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
+                                    <td style="display: none;"><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">
                                         <b><?php echo number_format($balance,2); ?></b>
                                     </td>

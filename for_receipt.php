@@ -58,7 +58,8 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
                                 <th style="display: none;">Phone Num</th>
                                 <th>Items Bought / Paid</th>
                                 <th>Total Amount</th>
-                                <th>Total Paid</th>
+                                <th>Status</th>
+                                <th style="display: none;">Total Paid</th>
                                 <th style="display: none;">Total Balance</th>
                                 <th style="display: none;">Actions</th>
                             </tr>
@@ -89,7 +90,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
                                         }?>
                                     </td>
                                     <td><?php echo '₱'.number_format($newTransaction['total_amount'],2); ?></td>
-                                    <td><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
+                                    <td style="display: none;"><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">
                                         <b><?php echo number_format($balance,2); ?></b>
                                     </td>
@@ -105,6 +106,17 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
                                             </a>
                                             <a href="#" class='btn btn-success btn-sm'><i class="far fa-window-close"></i> Cancel</a>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <?php if($newTransaction['transaction_date']<$date && $newTransaction['status_transact']==0){ ?>
+                                            <label class="text-danger">ABANDONED</label>
+                                        <?php } else if($newTransaction['status_transact']==0){ ?>
+                                            <label class="text-warning">PENDING</label>
+                                        <?php } else if($newTransaction['status_transact']==-1){ ?>
+                                            <label class="text-danger">RETURNED / CANCELLED</label>
+                                        <?php } else if($newTransaction['status_transact']==1){ ?>
+                                            <label class="text-success">COMPLETED</label>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php
