@@ -113,13 +113,19 @@ $getSeries = mysqli_query($mysqli, "SELECT *, sc.id AS sc_id FROM series_control
                             </tr>
                             </thead>
                             <tbody>
-                            <?php while($newSeries = $getSeries->fetch_assoc()){ ?>
+                            <?php while($newSeries = $getSeries->fetch_assoc()){
+                                $series_to = $newSeries['series_to'];
+                                $series_from = $newSeries['series_from'];
+                                $getMax = mysqli_query($mysqli, "SELECT MAX(series_id) AS last_series FROM transaction WHERE series_id >= '$series_from' AND series_id <= '$series_to' ");
+                                $newMax = $getMax->fetch_array();
+                                $remaining_sheet = $series_to - $newMax['last_series'];
+                                ?>
                             <tr>
                                 <td><?php echo $newSeries['sc_id']; ?></td>
                                 <td><?php echo $newSeries['full_name'];?></td>
                                 <td><?php echo $newSeries['series_from'];?></td>
                                 <td><?php echo $newSeries['series_to'];?></td>
-                                <td><?php echo $newSeries['account_cashier'];?></td>
+                                <td><?php echo $remaining_sheet; ?></td>
                             </tr>
                             <?php } ?>
                             </tbody>

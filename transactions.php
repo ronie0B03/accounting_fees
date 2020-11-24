@@ -31,9 +31,11 @@ else{ ?>
 <?php
 }
 $currentID = $_SESSION['current_transact_id'];
+$currentSeries = $_SESSION['currentSeries'];
 $getCurrentTransaction = mysqli_query($mysqli, "SELECT *, i.item_name, tl.qty AS tl_qty, tl.price AS tl_price FROM transaction_lists tl
 JOIN inventory i ON i.id = tl.item_id
 WHERE tl.transaction_id='$currentID' AND void = 0");
+
 if(mysqli_num_rows($getCurrentTransaction) > 0){
     $pendingItems = true;
     $total = 0;
@@ -136,6 +138,7 @@ else{
                                 <thead>
                                 <tr>
                                     <th width="10%;">Control ID</th>
+                                    <th width="20%;">Series No.</th>
                                     <th width="">Student ID</th>
                                     <th width="">Full Name</th>
                                     <th width="">Amount Paid</th>
@@ -144,6 +147,7 @@ else{
                                 <tbody>
                                 <tr>
                                     <td><input type="text" class="form-control" name="transactionID" value="<?php echo $currentID; ?>" readonly></td>
+                                    <td><input type="text" class="form-control" value="<?php echo sprintf('%08d',$currentSeries); ?>" readonly></td>
                                     <td><input type="number" class="form-control" name="student_id" placeholder="ex: 0191919003;" value="<?php echo $_SESSION['student_id']; ?>" readonly  ></td>
                                     <td><input type="text" class="form-control" name="full_name" placeholder="ex: Juan Cruz" value="<?php echo $_SESSION['full_name']; ?>" readonly ></td>
                                     <td><input type="number" step="0.01" class="form-control" name="amount_paid" min="<?php echo $total; ?>" value="<?php echo $total; ?>" required></td>

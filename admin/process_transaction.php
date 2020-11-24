@@ -6,7 +6,70 @@ $getURI = $_SESSION['getURI'];
 
 $date = date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d H:i:s');
+/*
+ * 2020-09-10
+if(isset($_POST['add_item'])){
+    $itemCtrl = mysqli_real_escape_string($mysqli, $_POST['itemCtrl']);
+    $itemCounter = ++$itemCtrl;
+    do{
+        $item = mysqli_real_escape_string($mysqli, $_POST['item'.$itemCtrl]);
+        $getURI = $getURI.'&item'.$itemCtrl.'='.$item;
 
+        $qty = mysqli_real_escape_string($mysqli, $_POST['qty'.$itemCtrl]);
+        $getURI = $getURI.'&qty'.$itemCtrl.'='.$qty;
+
+        //$price = mysqli_real_escape_string($mysqli, $_POST['price'.$itemCtrl]);
+        $getPrice = $mysqli->query("SELECT * FROM inventory WHERE id='$item' ") or die ($mysqli->error());
+        $newPrice = $getPrice->fetch_array();
+        $price = $newPrice['item_price'];
+        $getURI = $getURI.'&price'.$itemCtrl.'='.$price;
+
+        $itemCtrl--;
+    }while($itemCtrl!=0);
+
+    $getURI = $getURI.'&itemCtrl='.$itemCounter;
+    header("location: ".$getURI);
+}
+
+if(isset($_POST['save'])){
+    $itemCtrl = mysqli_real_escape_string($mysqli, $_POST['itemCtrl']);
+    $itemController = 1;
+    $transactionID = mysqli_real_escape_string($mysqli, $_POST['transactionID']);
+
+    $full_name = mysqli_real_escape_string($mysqli, $_POST['full_name']);
+    $student_id = mysqli_real_escape_string($mysqli, $_POST['student_id']);
+    $amount_paid = mysqli_real_escape_string($mysqli, $_POST['amount_paid']);
+
+    $total=0;
+    while($itemCtrl!=0){
+        $item = mysqli_real_escape_string($mysqli, $_POST['item'.$itemCtrl]);
+        $qty = mysqli_real_escape_string($mysqli, $_POST['qty'.$itemCtrl]);
+        $price = mysqli_real_escape_string($mysqli, $_POST['price'.$itemCtrl]);
+
+        if($qty!=NULL){
+            $subTotal = $price*$qty;
+            $mysqli->query("INSERT INTO transaction_lists (transaction_id, item_id, qty, price, transaction_date, subtotal) VALUES('$transactionID', '$item', '$qty', '$price','$date','$subTotal' )") or die($mysqli->error());
+            //Update Inventory
+            $getQtyInventory = mysqli_query($mysqli, "SELECT * FROM inventory WHERE id = '$item' ");
+            $newQtyInventory = $getQtyInventory->fetch_array();
+            $inventoryQty = $newQtyInventory['qty'] - $qty;
+            $mysqli->query("UPDATE inventory SET qty='$inventoryQty' WHERE id='$item' ") or die ($mysqli->error());
+        }
+
+        echo $total += $subTotal;
+
+        $itemController++;
+        $itemCtrl--;
+    }
+
+    $mysqli->query("INSERT INTO transaction (id, full_name, transaction_date, student_id, total_amount, amount_paid) VALUES('$transactionID', '$full_name', '$date', '$student_id', '$total', '$amount_paid' )") or die($mysqli->error());
+
+    $_SESSION['message'] = "Transaction has been saved!";
+    $_SESSION['msg_type'] = "success";
+
+    header('location: transactions.php');
+}
+*/
 if(isset($_POST['add_item'])){
     $transactionID = mysqli_real_escape_string($mysqli,$_POST['transactionID']);
     $item = mysqli_real_escape_string($mysqli, $_POST['item']);
@@ -25,12 +88,11 @@ if(isset($_POST['add_item'])){
     $inventoryQty = $newQtyInventory['qty'] - $qty;
     $mysqli->query("UPDATE inventory SET qty='$inventoryQty' WHERE id='$item' ") or die ($mysqli->error());
 
-
     //Add Logs - Add Items in order
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', Item ID: '.$item.', Transaction Date: '.$date.', Sub Total: '.$subTotal;
+    $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', Item ID: '.$item.', Transaction Date: '.$date.', Subtotal: ₱'.$subTotal;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Add Item', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -39,7 +101,7 @@ if(isset($_POST['add_item'])){
 
     #header("location: ".$getURI); //2020-10-20
     header("location: transactions.php?account");
-
+    exit();
 }
 
 if(isset($_POST['save'])){
@@ -58,7 +120,7 @@ if(isset($_POST['save'])){
     $accountCashier = $_SESSION['account_full_name'];
     $logDate = date_default_timezone_set('Asia/Manila');
     $logDate = date('Y-m-d H:i:s');
-    $context = 'Transaction - Finish Order. Transaction ID:'.$transactionID.', Full Name: '.$full_name.', Transaction Date: '.$date.', Total: ₱'.$total.', Amount Paid: ₱'.$amount_paid.' Change: ₱'.$change;
+    $context = 'Transaction - Finish Order. Transaction ID:'.$transactionID.', Full Name: '.$full_name.', Transaction Date: '.$date.', Total: ₱'.$total.', Amount Paid: ₱'.$amount_paid;
     $context = mysqli_real_escape_string($mysqli, $context);
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Finish Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -110,7 +172,47 @@ if(isset($_POST['find_student'])){
         $student_id = $_SESSION['student_id'];
         $full_name = $newStudent['full_name'];
         $cashier_account = $_SESSION['account_full_name'];
-        $sql = "INSERT INTO transaction (student_id, full_name, transaction_date, cashier_account) VALUES('$student_id', '$full_name', '$date','$cashier_account' )";
+
+        //Check Series here
+        $getCashierAccountID = $mysqli->query(" SELECT * FROM accounts WHERE full_name = '$cashier_account' ") or die($mysqli->error());
+        $newCashierAccountID = $getCashierAccountID->fetch_array();
+        $cashierID = $newCashierAccountID['id'];
+
+        $getSeriesReceipt = $mysqli->query(" SELECT * FROM series_controller WHERE account_cashier = '$cashierID' ORDER BY ID DESC LIMIT 1  ") or die($mysqli->error());
+        echo mysqli_num_rows($getSeriesReceipt);
+        if(mysqli_num_rows($getSeriesReceipt)<1){
+            $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+            $_SESSION['msg_type'] = "warning";
+            header("location: index.php");
+            exit();
+        }
+
+        while($newSeriesReceipt = $getSeriesReceipt->fetch_assoc()){
+
+            $series_to = $newSeriesReceipt['series_to'];
+            $series_from = $newSeriesReceipt['series_from'];
+            $getMax = mysqli_query($mysqli, "SELECT MAX(series_id) AS last_series FROM transaction WHERE series_id >= '$series_from' AND series_id <= '$series_to' ");
+            $newMax = $getMax->fetch_array();
+            $currentLastReceipt = $newMax['last_series'];
+
+            if($currentLastReceipt==$series_to){
+                $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+                $_SESSION['msg_type'] = "warning";
+                header("location: index.php");
+                exit();
+            }
+
+            if($currentLastReceipt==NULL){
+                $currentLastReceipt = $series_from;
+                $currentSeries = $currentLastReceipt;
+            }
+            else{
+                $currentSeries = $currentLastReceipt + 1;
+            }
+        }
+        //End Check Series here
+
+        $sql = "INSERT INTO transaction (series_id, student_id, full_name, transaction_date, cashier_account) VALUES('$currentSeries','$student_id', '$full_name', '$date','$cashier_account' )";
 
         if (mysqli_query($mysqli, $sql)) {
             $last_id = mysqli_insert_id($mysqli);
@@ -123,7 +225,7 @@ if(isset($_POST['find_student'])){
         $accountCashier = $_SESSION['account_full_name'];
         $logDate = date_default_timezone_set('Asia/Manila');
         $logDate = date('Y-m-d H:i:s');
-        $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', Full Name: '.$full_name.', Transaction Date: '.$date;
+        $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', full_name: '.$full_name.', transaction_date: '.$date;
         $context = mysqli_real_escape_string($mysqli, $context);
         $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Initiate Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
@@ -146,7 +248,48 @@ else if(isset($_POST['new_cust'])){
     $student_id = $_SESSION['student_id'];
     $cashier_account = $_SESSION['account_full_name'];
 
-    $sql = "INSERT INTO transaction (student_id, full_name, transaction_date, cashier_account ) VALUES('$student_id', '$full_name', '$date', '$cashier_account' )";
+    //Check Series here
+    $getCashierAccountID = $mysqli->query(" SELECT * FROM accounts WHERE full_name = '$cashier_account' ") or die($mysqli->error());
+    $newCashierAccountID = $getCashierAccountID->fetch_array();
+    $cashierID = $newCashierAccountID['id'];
+
+    $getSeriesReceipt = $mysqli->query(" SELECT * FROM series_controller WHERE account_cashier = '$cashierID' ORDER BY ID DESC LIMIT 1  ") or die($mysqli->error());
+    echo mysqli_num_rows($getSeriesReceipt);
+    if(mysqli_num_rows($getSeriesReceipt)<1){
+        $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+        $_SESSION['msg_type'] = "warning";
+        header("location: index.php");
+        exit();
+    }
+
+    while($newSeriesReceipt = $getSeriesReceipt->fetch_assoc()){
+
+        $series_to = $newSeriesReceipt['series_to'];
+        $series_from = $newSeriesReceipt['series_from'];
+        $getMax = mysqli_query($mysqli, "SELECT MAX(series_id) AS last_series FROM transaction WHERE series_id >= '$series_from' AND series_id <= '$series_to' ");
+        $newMax = $getMax->fetch_array();
+        $currentLastReceipt = $newMax['last_series'];
+
+        if($currentLastReceipt==$series_to){
+            $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+            $_SESSION['msg_type'] = "warning";
+            header("location: index.php");
+            exit();
+        }
+
+        if($currentLastReceipt==NULL){
+            $currentLastReceipt = $series_from;
+            $currentSeries = $currentLastReceipt;
+        }
+        else{
+            $currentSeries = $currentLastReceipt + 1;
+        }
+        $currentSeries;
+    }
+    //End Check Series here
+
+    $sql = "INSERT INTO transaction (series_id, student_id, full_name, transaction_date, cashier_account ) VALUES('$currentSeries','$student_id', '$full_name', '$date', '$cashier_account' )";
+
 
     if (mysqli_query($mysqli, $sql)) {
         $last_id = mysqli_insert_id($mysqli);
@@ -154,6 +297,7 @@ else if(isset($_POST['new_cust'])){
         echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
     }
     $_SESSION['current_transact_id'] = $last_id;
+    $_SESSION['currentSeries'] = $currentSeries;
 
     //Add Logs - Initiate Order
     $accountCashier = $_SESSION['account_full_name'];
@@ -161,13 +305,15 @@ else if(isset($_POST['new_cust'])){
     $logDate = date('Y-m-d H:i:s');
     $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', Full Name: '.$full_name.', Transaction Date: '.$date;
     $context = mysqli_real_escape_string($mysqli, $context);
+
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Initiate Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
     $_SESSION['message'] =  "New Transaction";
     $_SESSION['msg_type'] = "primary";
     header("location: transactions.php?account=0");
+    exit();
 }
-
+//Void Items
 if(isset($_GET['void'])){
     $id = $_GET['void'];
     $qty = $_GET['qty'];
@@ -250,6 +396,7 @@ if(isset($_GET['cancel'])){
     $_SESSION['msg_type'] = "danger";
 
     header("location: today_transaction.php");
+    exit();
 }
 
 ?>

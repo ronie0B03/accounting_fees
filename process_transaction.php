@@ -101,7 +101,7 @@ if(isset($_POST['add_item'])){
 
     #header("location: ".$getURI); //2020-10-20
     header("location: transactions.php?account");
-
+    exit();
 }
 
 if(isset($_POST['save'])){
@@ -172,7 +172,47 @@ if(isset($_POST['find_student'])){
         $student_id = $_SESSION['student_id'];
         $full_name = $newStudent['full_name'];
         $cashier_account = $_SESSION['account_full_name'];
-        $sql = "INSERT INTO transaction (student_id, full_name, transaction_date, cashier_account) VALUES('$student_id', '$full_name', '$date','$cashier_account' )";
+
+        //Check Series here
+        $getCashierAccountID = $mysqli->query(" SELECT * FROM accounts WHERE full_name = '$cashier_account' ") or die($mysqli->error());
+        $newCashierAccountID = $getCashierAccountID->fetch_array();
+        $cashierID = $newCashierAccountID['id'];
+
+        $getSeriesReceipt = $mysqli->query(" SELECT * FROM series_controller WHERE account_cashier = '$cashierID' ORDER BY ID DESC LIMIT 1  ") or die($mysqli->error());
+        echo mysqli_num_rows($getSeriesReceipt);
+        if(mysqli_num_rows($getSeriesReceipt)<1){
+            $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+            $_SESSION['msg_type'] = "warning";
+            header("location: index.php");
+            exit();
+        }
+
+        while($newSeriesReceipt = $getSeriesReceipt->fetch_assoc()){
+
+            $series_to = $newSeriesReceipt['series_to'];
+            $series_from = $newSeriesReceipt['series_from'];
+            $getMax = mysqli_query($mysqli, "SELECT MAX(series_id) AS last_series FROM transaction WHERE series_id >= '$series_from' AND series_id <= '$series_to' ");
+            $newMax = $getMax->fetch_array();
+            $currentLastReceipt = $newMax['last_series'];
+
+            if($currentLastReceipt==$series_to){
+                $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+                $_SESSION['msg_type'] = "warning";
+                header("location: index.php");
+                exit();
+            }
+
+            if($currentLastReceipt==NULL){
+                $currentLastReceipt = $series_from;
+                $currentSeries = $currentLastReceipt;
+            }
+            else{
+                $currentSeries = $currentLastReceipt + 1;
+            }
+        }
+        //End Check Series here
+
+        $sql = "INSERT INTO transaction (series_id, student_id, full_name, transaction_date, cashier_account) VALUES('$currentSeries','$student_id', '$full_name', '$date','$cashier_account' )";
 
         if (mysqli_query($mysqli, $sql)) {
             $last_id = mysqli_insert_id($mysqli);
@@ -208,7 +248,48 @@ else if(isset($_POST['new_cust'])){
     $student_id = $_SESSION['student_id'];
     $cashier_account = $_SESSION['account_full_name'];
 
-    $sql = "INSERT INTO transaction (student_id, full_name, transaction_date, cashier_account ) VALUES('$student_id', '$full_name', '$date', '$cashier_account' )";
+    //Check Series here
+    $getCashierAccountID = $mysqli->query(" SELECT * FROM accounts WHERE full_name = '$cashier_account' ") or die($mysqli->error());
+    $newCashierAccountID = $getCashierAccountID->fetch_array();
+    $cashierID = $newCashierAccountID['id'];
+
+    $getSeriesReceipt = $mysqli->query(" SELECT * FROM series_controller WHERE account_cashier = '$cashierID' ORDER BY ID DESC LIMIT 1  ") or die($mysqli->error());
+    echo mysqli_num_rows($getSeriesReceipt);
+    if(mysqli_num_rows($getSeriesReceipt)<1){
+        $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+        $_SESSION['msg_type'] = "warning";
+        header("location: index.php");
+        exit();
+    }
+
+    while($newSeriesReceipt = $getSeriesReceipt->fetch_assoc()){
+
+        $series_to = $newSeriesReceipt['series_to'];
+        $series_from = $newSeriesReceipt['series_from'];
+        $getMax = mysqli_query($mysqli, "SELECT MAX(series_id) AS last_series FROM transaction WHERE series_id >= '$series_from' AND series_id <= '$series_to' ");
+        $newMax = $getMax->fetch_array();
+        $currentLastReceipt = $newMax['last_series'];
+
+        if($currentLastReceipt==$series_to){
+            $_SESSION['message'] =  "Cannot proceed. Please associate a new series in this account. Contact the administrator for assistance.";
+            $_SESSION['msg_type'] = "warning";
+            header("location: index.php");
+            exit();
+        }
+
+        if($currentLastReceipt==NULL){
+            $currentLastReceipt = $series_from;
+            $currentSeries = $currentLastReceipt;
+        }
+        else{
+            $currentSeries = $currentLastReceipt + 1;
+        }
+        $currentSeries;
+    }
+    //End Check Series here
+
+    $sql = "INSERT INTO transaction (series_id, student_id, full_name, transaction_date, cashier_account ) VALUES('$currentSeries','$student_id', '$full_name', '$date', '$cashier_account' )";
+
 
     if (mysqli_query($mysqli, $sql)) {
         $last_id = mysqli_insert_id($mysqli);
@@ -216,6 +297,7 @@ else if(isset($_POST['new_cust'])){
         echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
     }
     $_SESSION['current_transact_id'] = $last_id;
+    $_SESSION['currentSeries'] = $currentSeries;
 
     //Add Logs - Initiate Order
     $accountCashier = $_SESSION['account_full_name'];
@@ -223,12 +305,13 @@ else if(isset($_POST['new_cust'])){
     $logDate = date('Y-m-d H:i:s');
     $context = 'Initiate Order. Transaction ID:'.$last_id.', Student ID: '.$student_id.', Full Name: '.$full_name.', Transaction Date: '.$date;
     $context = mysqli_real_escape_string($mysqli, $context);
+
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Initiate Order', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
     $_SESSION['message'] =  "New Transaction";
     $_SESSION['msg_type'] = "primary";
     header("location: transactions.php?account=0");
+    exit();
 }
-
 
 ?>

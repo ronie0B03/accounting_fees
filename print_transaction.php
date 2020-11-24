@@ -18,7 +18,7 @@ $id = $newReceipt['transaction_id'];
 
 $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE id = '$id' ");
 $newTransaction = $getTransaction->fetch_array();
-
+$series_id = $newTransaction['series_id'];
 $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
 ?>
@@ -52,8 +52,8 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
             <!-- View Individual Transactions -->
             <div class="mb-4">
                 <div class="card-header py-3">
-                    <span class="h6 m-0 font-weight-bold text-danger">Transaction Control ID / AR No: <?php echo sprintf('%08d',$id); ?></span>
-                    <span class=" h6 m-0 font-weight-bold text-danger float-right" style="display: none">AR No: <?php echo sprintf('%08d',$receipt_id); ?></span>
+                    <span class="h6 m-0 font-weight-bold text-danger">Transaction Control ID: <?php echo sprintf('%08d',$id); ?></span>
+                    <span class=" h6 m-0 font-weight-bold text-danger float-right">Series No: <?php echo sprintf('%08d',$series_id); ?></span>
                 </div>
                 <div class="card-body">
                     <span class="float-right">Date: <b><?php echo date('Y-m-d H:i:s');?></b></span>

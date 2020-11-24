@@ -27,13 +27,15 @@ if(isset($_GET['account'])){
     }
 }
 else{ ?>
-<meta http-equiv = "refresh" content = "0; url = index.php" />
-<?php
+    <meta http-equiv = "refresh" content = "0; url = index.php" />
+    <?php
 }
 $currentID = $_SESSION['current_transact_id'];
+$currentSeries = $_SESSION['currentSeries'];
 $getCurrentTransaction = mysqli_query($mysqli, "SELECT *, i.item_name, tl.qty AS tl_qty, tl.price AS tl_price FROM transaction_lists tl
 JOIN inventory i ON i.id = tl.item_id
 WHERE tl.transaction_id='$currentID' AND void = 0");
+
 if(mysqli_num_rows($getCurrentTransaction) > 0){
     $pendingItems = true;
     $total = 0;
@@ -43,7 +45,7 @@ else{
     $total = 0;
 }
 ?>
-<title>Transactions</title>
+<title>SPCF - Accounting Office</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -99,31 +101,31 @@ else{
                                         <td><?php echo $newCurrentTransaction['tl_price']; ?></td>
                                         <td><?php echo $subTotal = $newCurrentTransaction['subtotal']; ?></td>
                                     </tr>
-                                <!-- Stop listing here -->
-                                <?php
+                                    <!-- Stop listing here -->
+                                    <?php
                                     $total+=$subTotal;
-                                    } ?>
-                                    <tr>
-                                        <td>
-                                            <select dir="rtl" class="form-control" name="item">
-                                                <?php
-                                                $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
-                                                while($newItemsForAdding=$getItemForAdding->fetch_assoc()){
-                                                    ?>
-                                                    <option class="" value="<?php echo $newItemsForAdding['id']; ?>">
-                                                        <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']/*.' - PHP'.$newItemsForAdding['item_price']*/); ?>
-                                                    </option>
-                                                <?php } ?>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="qty" value="<?php echo '1'; ?>" min="1" >
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="price" step="0.0001" placeholder="0.00" readonly>
-                                        </td>
-                                        <td><input class="form-control" name="subTotal" value="" step="0.0001" placeholder="0.00" readonly></td>
-                                    </tr>
+                                } ?>
+                                <tr>
+                                    <td>
+                                        <select dir="rtl" class="form-control" name="item">
+                                            <?php
+                                            $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
+                                            while($newItemsForAdding=$getItemForAdding->fetch_assoc()){
+                                                ?>
+                                                <option class="" value="<?php echo $newItemsForAdding['id']; ?>">
+                                                    <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']/*.' - PHP'.$newItemsForAdding['item_price']*/); ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" name="qty" value="<?php echo '1'; ?>" min="1" >
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" name="price" step="0.0001" placeholder="0.00" readonly>
+                                    </td>
+                                    <td><input class="form-control" name="subTotal" value="" step="0.0001" placeholder="0.00" readonly></td>
+                                </tr>
                                 </tbody>
                             </table>
                             <button type="submit" class="btn btn-success btn-sm float-right" name="add_item">Add Item</button>
@@ -136,6 +138,7 @@ else{
                                 <thead>
                                 <tr>
                                     <th width="10%;">Control ID</th>
+                                    <th width="20%;">Series No.</th>
                                     <th width="">Student ID</th>
                                     <th width="">Full Name</th>
                                     <th width="">Amount Paid</th>
@@ -144,6 +147,7 @@ else{
                                 <tbody>
                                 <tr>
                                     <td><input type="text" class="form-control" name="transactionID" value="<?php echo $currentID; ?>" readonly></td>
+                                    <td><input type="text" class="form-control" value="<?php echo sprintf('%08d',$currentSeries); ?>" readonly></td>
                                     <td><input type="number" class="form-control" name="student_id" placeholder="ex: 0191919003;" value="<?php echo $_SESSION['student_id']; ?>" readonly  ></td>
                                     <td><input type="text" class="form-control" name="full_name" placeholder="ex: Juan Cruz" value="<?php echo $_SESSION['full_name']; ?>" readonly ></td>
                                     <td><input type="number" step="0.01" class="form-control" name="amount_paid" min="<?php echo $total; ?>" value="<?php echo $total; ?>" required></td>
@@ -174,7 +178,7 @@ else{
                                 <th>Date</th>
                                 <th>Control ID</th>
                                 <th>Full Name</th>
-                                <th>Phone Num</th>
+                                <th style="display: none;">Phone Num</th>
                                 <th>Total Amount</th>
                                 <th>Total Paid</th>
                                 <th style="display: none;">Total Balance</th>
@@ -189,7 +193,7 @@ else{
                                     <td><?php echo $newTransaction['transaction_date']; ?></td>
                                     <td><a href="view_transaction.php?id=<?php echo $newTransaction['id']; ?>" target="_blank"><?php echo $newTransaction['id']; ?></a></td>
                                     <td><a href="view_transaction.php?id=<?php echo $newTransaction['id']; ?>" target="_blank"><?php echo $newTransaction['full_name']; ?></a></td>
-                                    <td><?php echo $newTransaction['phone_num']; ?></td>
+                                    <td style="display: none;"><?php echo $newTransaction['phone_num']; ?></td>
                                     <td><?php echo '₱'.number_format($newTransaction['total_amount'],2); ?></td>
                                     <td><?php echo '₱'.number_format($newTransaction['amount_paid'],2); ?></td>
                                     <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">

@@ -16,7 +16,7 @@ if(isset($_GET['from_date'])){
     $from_date = $_GET['from_date'];
     $to_date  = $_GET['to_date'];
     $item_id = $_GET['item_id'];
-    $getTransactionsList = mysqli_query($mysqli, " SELECT i.item_name, t.id AS transaction_id, t.transaction_date, t.full_name, tl.subtotal, t.cashier_account, t.student_id 
+    $getTransactionsList = mysqli_query($mysqli, " SELECT i.item_name, t.id AS transaction_id, t.series_id, t.transaction_date, t.full_name, tl.subtotal, t.cashier_account, t.student_id 
     FROM transaction_lists tl
     JOIN inventory i
     ON i.id = tl.item_id
@@ -67,7 +67,8 @@ if(isset($_GET['from_date'])){
                                 <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Control No.</th>
+                                    <th>Control ID.</th>
+                                    <th>Series No.</th>
                                     <th>Student ID</th>
                                     <th>Full Name</th>
                                     <th>Item Name</th>
@@ -85,8 +86,9 @@ if(isset($_GET['from_date'])){
                                     <tr>
                                         <td><?php echo $newTransactionsList['transaction_date'];?></td>
                                         <td><?php echo $newTransactionsList['transaction_id'];?></td>
+                                        <td class="font-weight-bold"><?php echo sprintf('%08d',$newTransactionsList['series_id']); ?></td>
                                         <td><?php echo $newTransactionsList['student_id'];?></td>
-                                        <td><?php echo $newTransactionsList['full_name'];?></td>
+                                        <td class="text-uppercase"><?php echo $newTransactionsList['full_name'];?></td>
                                         <td><?php echo $newTransactionsList['item_name'];?></td>
                                         <td>₱<?php echo number_format($subTotal,2);?></td>
                                         <td><?php echo $newTransactionsList['cashier_account'];?></td>

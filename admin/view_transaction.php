@@ -56,13 +56,10 @@ else{
             <!-- View Individual Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <span class="h-6 m-0 font-weight-bold text-primary">View Transaction</span>
-                    <?php if($newTransaction['status_transact']=='-1'){ ?>
-                        <span class="h-6 m-0 font-weight-bold text-danger float-right">CANCELLED ORDER</span>
-                    <?php } ?>
+                    <h6 class="m-0 font-weight-bold text-primary">View Transaction</h6>
                 </div>
                 <div class="card-body">
-                    <span class="float-right">Control ID: <b><?php echo $id;?></b></span>
+                    <span class="float-right">Control ID: <b><?php echo $id;?></b><br/>Series No: <b><?php echo sprintf('%08d',$newTransaction['series_id']); ?></b></span>
                     Customer Name: <b><?php echo $newTransaction['full_name']; ?></b>
                     <br>
                     Student No: <b><?php echo 'NaN'; ?></b>

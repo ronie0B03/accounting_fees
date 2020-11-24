@@ -7,7 +7,6 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI.'?';
 
-//echo
 $cashier_account_full_name = $_SESSION['account_full_name'];
 
 $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier_account = '$cashier_account_full_name' ");
@@ -45,7 +44,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
             <!-- List of Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">List of Transactions</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">List of Transactions (Per AR)</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -78,7 +77,7 @@ $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier
                                 <tr>
                                     <td><?php echo $newTransaction['transaction_date']; ?></td>
                                     <td><a href="view_transaction.php?id=<?php echo $id; ?>" target="_blank"><?php echo $id; ?></a></td>
-                                    <td><a href="view_transaction.php?id=<?php echo $id; ?>" target="_blank"><?php echo $newTransaction['full_name']; ?></a></td>
+                                    <td class="text-uppercase"><a href="view_transaction.php?id=<?php echo $id; ?>" target="_blank"><?php echo $newTransaction['full_name']; ?></a></td>
                                     <td style="display: none;"><?php echo $newTransaction['phone_num']; ?></td>
                                     <td><?php
                                         if($newTransaction['amount_paid']==0){

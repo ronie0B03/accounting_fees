@@ -59,7 +59,7 @@ else{
                     <h6 class="m-0 font-weight-bold text-primary">View Transaction</h6>
                 </div>
                 <div class="card-body">
-                    <span class="float-right">Control ID: <b><?php echo $id;?></b></span>
+                    <span class="float-right">Control ID: <b><?php echo $id;?></b><br/>Series No: <b><?php echo sprintf('%08d',$newTransaction['series_id']); ?></b></span>
                     Customer Name: <b><?php echo $newTransaction['full_name']; ?></b>
                     <br>
                     Student No: <b><?php echo 'NaN'; ?></b>
