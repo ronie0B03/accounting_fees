@@ -16,12 +16,13 @@ if(isset($_GET['from_date'])){
     $dateExist = true;
     $from_date = $_GET['from_date'].' 00:00:00';
     $to_date  = $_GET['to_date'].' 23:59:59';
-    $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id FROM transaction_lists tl
+    $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
  JOIN transaction t ON t.id = tl.transaction_id
  JOIN inventory i
  ON i.id = tl.item_id
  WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
- AND t.cashier_account = '$cashier_account_full_name' ");
+ AND t.cashier_account = '$cashier_account_full_name' AND tl.void = '0'
+ ORDER BY t.transaction_date ASC ");
 
     $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
  JOIN transaction t ON t.id = tl.transaction_id
@@ -106,6 +107,7 @@ if(isset($_GET['from_date'])){
                                     <th width="5%">No</th>
                                     <th width="10%">Control ID</th>
                                     <th>Series No.</th>
+									<th>Date</th>
                                     <th>Full Name</th>
                                     <th>Amount</th>
                                     <th>Kind of Pay</th>
@@ -120,12 +122,13 @@ if(isset($_GET['from_date'])){
                                         <td><?php echo ++$no; ?></td>
                                         <td><?php echo $newTransaction['transaction_id']; ?></td>
                                         <td class="font-weight-bold"><?php echo sprintf('%08d',$newTransaction['series_id']); ?></td>
+										<td><?php echo $newTransaction['transaction_date']; ?></td>
                                         <td class="text-uppercase"><?php echo $newTransaction['full_name']; ?></td>
-                                        <td>₱<?php echo number_format($newTransaction['amount_paid'],2); ?></td>
+                                        <td>₱<?php echo number_format($newTransaction['subtotal_amount_paid'],2); ?></td>
                                         <td><?php echo $newTransaction['item_name']; ?></td>
                                     </tr>
                                 <?php
-                                    $grandTotal = $grandTotal + $newTransaction['amount_paid'];
+                                    $grandTotal = $grandTotal + $newTransaction['subtotal_amount_paid'];
                                 } ?>
                                 </tbody>
                             </table><br/>
@@ -134,9 +137,13 @@ if(isset($_GET['from_date'])){
                             </div>
                             <br/>
                             <div style="text-align: left;" class=" h6">
-                                <?php while($newSummaryItem=$getSummaryItem->fetch_assoc()){?>
+                                <?php
+								$subTotal = 0;
+								while($newSummaryItem=$getSummaryItem->fetch_assoc()){?>
                                     <?php echo $newSummaryItem['item_name']; ?>: ₱<?php echo number_format($newSummaryItem['sum_subTotal'],2);?><br/>
-                                <?php } ?>
+                                <?php
+								$subTotal = $subTotal + $newSummaryItem['sum_subTotal'];
+								} //echo 'Total Tally: ₱'.$subTotal; ?>
                             </div>
                             <br/>
                             <span class="float-left">
