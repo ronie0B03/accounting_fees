@@ -12,7 +12,12 @@ $userExist=false;
 if(isset($_GET['user'])){
     $userExist = true;
     $user=$_GET['user'];
-    $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier_account = '$user' ");
+    if($_GET['user']=='all'){
+        $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
+    }
+    else{
+        $getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE cashier_account = '$user' ");
+    }
 }
 ?>
 <title>SPCF - Accounting Office</title>
@@ -48,6 +53,7 @@ if(isset($_GET['user'])){
             <?php while($newUsers=$getUsers->fetch_assoc()){?>
                 <a href="for_receipt.php?user=<?php echo $newUsers['full_name'];?>"><?php echo $newUsers['full_name']; ?></a><br>
             <?php } ?>
+                <a href="for_receipt.php?user=all">All Cashiers</a>
             <!-- List of Transactions -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -91,7 +97,7 @@ if(isset($_GET['user'])){
                                     <td style="display: none;"><?php echo $newTransaction['phone_num']; ?></td>
                                     <td><?php
                                         if($newTransaction['amount_paid']==0){
-                                            echo '<span class="text-danger ">This transaction is cancelled.</span>';
+                                            #echo '<span class="text-danger ">This transaction is cancelled.</span>';
                                         }
                                         $itemCounter=0;
                                         while($newItems = $getItems->fetch_assoc()){
