@@ -26,14 +26,16 @@ if(isset($_POST['print_receipt'])){
     $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Generate Receipt', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
     header('location: print_transaction.php?id='.$receipt_id);
+    exit();
 }
 
 if(isset($_POST['get_report_individual'])){
     $from_date = $_POST['from_date'];
     $to_date = $_POST['to_date'];
 
-    header("location: view_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date);
-
+    #header("location: view_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date);
+    header("location: print_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date);
+    exit();
 }
 
 ?>
