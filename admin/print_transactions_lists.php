@@ -9,37 +9,11 @@ $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI;
 
 $dateExist = false;
-
+if(isset($_GET['from_date'])){
+    $dateExist = true;
+}
 #$cashier_account_full_name = $_SESSION['account_full_name'];
 
-if(isset($_GET['from_date'])){
-    $cashier_account_full_name = $_GET['cashier_account'];
-    $dateExist = true;
-    $from_date = $_GET['from_date'].' 00:00:00';
-    $to_date  = $_GET['to_date'].' 23:59:59';
-    $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
- JOIN transaction t ON t.id = tl.transaction_id
- JOIN inventory i
- ON i.id = tl.item_id
- WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
- AND t.cashier_account = '$cashier_account_full_name' AND tl.void = '0'
- ORDER BY t.transaction_date ASC ");
-
-    if($cashier_account_full_name=='all'){
-    $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
- RIGHT JOIN transaction t ON t.id = tl.transaction_id
- LEFT JOIN inventory i ON i.id = tl.item_id
- WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date')
- ORDER BY t.transaction_date ASC ");
-    }
-
-    $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
- JOIN transaction t ON t.id = tl.transaction_id
- JOIN inventory i
- ON i.id = tl.item_id
- WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
- AND t.cashier_account = '$cashier_account_full_name' GROUP BY tl.item_id  ");
-}
 //print_r($getTransactions);
 ?>
 
@@ -89,7 +63,47 @@ if(isset($_GET['from_date'])){
                                 <?php
                                 $no=0;
                                 $grandTotal = 0;
-                                while($newTransaction = $getTransactions->fetch_assoc()){ ?>
+                                $seriesCount = 1;
+                                while($seriesCount<=100){
+                                    /* Added 2020-11-26*/
+
+                                    if(isset($_GET['from_date'])){
+                                        $cashier_account_full_name = $_GET['cashier_account'];
+                                        $dateExist = true;
+                                        $from_date = $_GET['from_date'].' 00:00:00';
+                                        $to_date  = $_GET['to_date'].' 23:59:59';
+                                        $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
+                                         RIGHT JOIN transaction t ON t.id = tl.transaction_id
+                                         LEFT JOIN inventory i ON i.id = tl.item_id
+                                         WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date')
+                                         AND t.cashier_account = '$cashier_account_full_name' AND t.series_id = '$seriesCount'
+                                         ORDER BY t.transaction_date ASC ");
+
+                                        $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
+                                         JOIN transaction t ON t.id = tl.transaction_id
+                                         JOIN inventory i
+                                         ON i.id = tl.item_id
+                                         WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
+                                         AND t.cashier_account = '$cashier_account_full_name' GROUP BY tl.item_id  ");
+                                         if($cashier_account_full_name=='all'){
+                                             $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
+                                             RIGHT JOIN transaction t ON t.id = tl.transaction_id
+                                             LEFT JOIN inventory i ON i.id = tl.item_id     
+                                             WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date') AND t.series_id = '$seriesCount'
+                                             ORDER BY t.transaction_date ASC ");
+
+                                             $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
+                                         JOIN transaction t ON t.id = tl.transaction_id
+                                         JOIN inventory i
+                                         ON i.id = tl.item_id
+                                         WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date') GROUP BY tl.item_id  ");
+                                         }
+
+                                    }
+                                    /* Added 2020-11-26*/
+                                    if(mysqli_num_rows($getTransactions)>0){
+                                        $newTransaction = $getTransactions->fetch_array();
+                                    ?>
                                     <tr>
                                         <td><?php echo ++$no; ?></td>
                                         <td><?php echo $newTransaction['transaction_id']; ?></td>
@@ -113,7 +127,20 @@ if(isset($_GET['from_date'])){
                                         </td>
                                         <td><?php echo $newTransaction['item_name']; ?></td>
                                     </tr>
-                                    <?php
+                                        <?php } else { ?>
+                                        <tr>
+                                            <td><?php echo ++$no; ?></td>
+                                            <td><?php echo $seriesCount; ?></td>
+                                            <td class="font-weight-bold"><?php echo sprintf('%08d',$seriesCount); ?>
+                                                ABANDONED
+                                            </td>
+                                            <td>NA</td>
+                                            <td class="text-uppercase">NA</td>
+                                            <td>₱0.00 </td>
+                                            <td>NA</td>
+                                        </tr>
+                                        <?php } ?>
+                                    <?php $seriesCount++;
                                 } ?>
                                 </tbody>
                             </table><br/>
