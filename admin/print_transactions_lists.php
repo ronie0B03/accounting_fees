@@ -27,10 +27,9 @@ if(isset($_GET['from_date'])){
 
     if($cashier_account_full_name=='all'){
     $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
- JOIN transaction t ON t.id = tl.transaction_id
- JOIN inventory i
- ON i.id = tl.item_id
- WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
+ RIGHT JOIN transaction t ON t.id = tl.transaction_id
+ LEFT JOIN inventory i ON i.id = tl.item_id
+ WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date')
  ORDER BY t.transaction_date ASC ");
     }
 
@@ -95,12 +94,15 @@ if(isset($_GET['from_date'])){
                                         <td><?php echo ++$no; ?></td>
                                         <td><?php echo $newTransaction['transaction_id']; ?></td>
                                         <td class="font-weight-bold"><?php echo sprintf('%08d',$newTransaction['series_id']); ?>
-                                            <?php if($newTransaction['void']==1){echo 'CANCELLED';  } ?>
+                                            <?php
+                                                if($newTransaction['status_transact']==-1){echo 'CANCELLED'; }
+                                                if($newTransaction['status_transact']==0){ echo 'ABANDONED'; }
+                                            ?>
                                         </td>
                                         <td><?php echo $newTransaction['transaction_date']; ?></td>
                                         <td class="text-uppercase"><?php echo $newTransaction['full_name']; ?></td>
                                         <td>₱<?php
-                                        if($newTransaction['void']==1){
+                                        if($newTransaction['status_transact']==-1){
                                             echo number_format(0,2);
                                             $grandTotal = $grandTotal + $newTransaction['subtotal_amount_paid'];
                                         }
