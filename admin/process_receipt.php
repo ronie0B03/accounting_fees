@@ -26,5 +26,13 @@ if(isset($_POST['print_receipt'])){
 
     header('location: print_transaction.php?id='.$receipt_id);
 }
+if(isset($_POST['get_report_individual'])){
+    $from_date = $_POST['from_date'];
+    $to_date = $_POST['to_date'];
+    $cashier_account = $_POST['cashier_account'];
 
+    #header("location: view_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date);
+    header("location: print_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date."&cashier_account=".$cashier_account);
+    exit();
+}
 ?>

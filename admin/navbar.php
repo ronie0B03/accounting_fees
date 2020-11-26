@@ -46,7 +46,8 @@
                 <div id="collapseTransactions" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" data-toggle="modal" data-target="#transactionModal">Add Transactions</a>
-                        <a class="collapse-item" href="for_receipt.php">View Transactions</a>
+                        <a class="collapse-item" href="for_receipt.php">View Transactions (Per Receipt)</a>
+                        <a class="collapse-item" href="view_transactions_lists.php">View Transactions (Itemized Lists)</a>
                     </div>
                 </div>
             </li>
