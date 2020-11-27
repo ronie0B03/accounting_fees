@@ -130,7 +130,7 @@ if(isset($_GET['from_date'])){
                                         <?php } else { ?>
                                         <tr>
                                             <td><?php echo ++$no; ?></td>
-                                            <td><?php echo $seriesCount; ?></td>
+                                            <td>NA</td>
                                             <td class="font-weight-bold"><?php echo sprintf('%08d',$seriesCount); ?>
                                                 ABANDONED
                                             </td>
