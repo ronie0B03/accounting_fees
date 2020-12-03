@@ -58,17 +58,15 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                 <div class="card-body">
                     <span class="float-right">
                         <b>Date: <?php echo date('Y-m-d H:i:s');?></b></span>
-                    <b>Customer Name: <?php echo ucwords($newTransaction['full_name']); ?></b>
-                    <br>
-                    <b>Address: <?php echo ucwords($newTransaction['address']); ?></b>
-                    <br>
-                    <b>Phone Number: <?php echo $newTransaction['phone_num']; ?></b>
-                    <br>
-                    <br>
+                    <b class="text-uppercase">Customer Name: <?php echo ucwords($newTransaction['full_name']); ?></b>
+                    <b style="display: none;">Address: <?php echo ucwords($newTransaction['address']); ?></b>
+                    <b style="display: none;">Phone Number: <?php echo $newTransaction['phone_num']; ?></b>
+                    <br/>
+                    <br/>
                     <div class="table-responsive">
                         <table class="table table-bordered" style="color: black;">
                             <thead>
-                            <tr>
+                            <tr class="text-uppercase">
                                 <th>Product</th>
                                 <th>Qty</th>
                                 <th>Price</th>
@@ -97,19 +95,19 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                                 $total += $subTotal;
                             } ?>
                             <tr>
-                                <td colspan="3"><span class="float-right font-weight-bold ">Total:</span></td>
+                                <td colspan="3"><span class="float-right font-weight-bold ">TOTAL:</span></td>
                                 <td><span class="font-weight-bold">₱<?php echo number_format($total,2); ?></span></td>
                             </tr>
                             </tbody>
                         </table>
-
-                        <b class="float-right">Total Amount Paid: ₱<?php echo number_format($newTransaction['amount_paid'],2); ?></b>
                         <br>
-                        <b class="float-right">Change: ₱<?php echo number_format($newTransaction['amount_paid']-$newTransaction['total_amount'],2); ?></b>
+                        <b class="float-right" style="line-height: 0;">TOTAL AMOUNT PAID: ₱<?php echo number_format($newTransaction['amount_paid'],2); ?></b>
+                        <br>
+                        <b class="float-right" style="line-height: 0;">CHANGE: ₱<?php echo number_format($newTransaction['amount_paid']-$newTransaction['total_amount'],2); ?></b>
                         <br/>
                         <br/>
                         <div style="">
-                            <span class="float-right"><b>Cashier: <u><?php echo ucfirst($_SESSION['account_full_name']); ?></b></u></span>
+                            <span class="float-right"><b>CASHIER: <u><?php echo strtoupper($_SESSION['account_full_name']); ?></b></u></span>
                             <a style="display: none;" href="view_transaction.php?id=<?php echo $id; ?>" class="text-white btn btn-sm btn-info float-left"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                             <?php if($counter==1){ ?>
                                 STUDENT'S COPY
@@ -154,5 +152,20 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
             .print_area {
                 min-height: 5.5in;
             }
+        }
+
+        table.table {
+            width: 100% !important;
+            margin: 0 auto;
+        }
+
+        /** only for the head of the table. */
+        table.table thead th {
+            padding: 0;
+        }
+
+        /** only for the body of the table. */
+        table.table tbody td {
+            padding: 0;
         }
     </style>
