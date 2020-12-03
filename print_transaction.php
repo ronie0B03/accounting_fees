@@ -67,10 +67,10 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                         <table class="table table-bordered" style="color: black;">
                             <thead>
                             <tr class="text-uppercase">
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Subtotal</th>
+                                <th style="padding-left: 10px !important;">Product</th>
+                                <th style="padding-left: 10px !important;">Qty</th>
+                                <th style="padding-left: 10px !important;">Price</th>
+                                <th style="padding-left: 10px !important;">Subtotal</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -86,17 +86,17 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
                                 $subTotal = $newTransactionList['price'] * $newTransactionList['qty'];
                                 ?>
                                 <tr>
-                                    <td><?php echo strtoupper($itemName); ?></td>
-                                    <td><?php echo $newTransactionList['qty'].' pc(s)'; ?></td>
-                                    <td>₱ <?php echo number_format($newTransactionList['price'],2); ?></td>
-                                    <td>₱ <?php echo number_format($subTotal,2); ?></td>
+                                    <td style="padding-left: 10px !important;"><?php echo strtoupper($itemName); ?></td>
+                                    <td style="padding-left: 10px !important;"><?php echo $newTransactionList['qty'].' pc(s)'; ?></td>
+                                    <td style="padding-left: 10px !important;">₱ <?php echo number_format($newTransactionList['price'],2); ?></td>
+                                    <td style="padding-left: 10px !important;">₱ <?php echo number_format($subTotal,2); ?></td>
                                 </tr>
                                 <?php
                                 $total += $subTotal;
                             } ?>
                             <tr>
-                                <td colspan="3"><span class="float-right font-weight-bold ">TOTAL:</span></td>
-                                <td><span class="font-weight-bold">₱<?php echo number_format($total,2); ?></span></td>
+                                <td colspan="3" style="padding-right: 10px !important;"><span class="float-right font-weight-bold ">TOTAL:</span></td>
+                                <td style="padding-left: 10px !important;"><span class="font-weight-bold">₱<?php echo number_format($total,2); ?></span></td>
                             </tr>
                             </tbody>
                         </table>
