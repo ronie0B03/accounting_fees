@@ -16,13 +16,19 @@ if(isset($_GET['from_date'])){
     $dateExist = true;
     $from_date = $_GET['from_date'].' 00:00:00';
     $to_date  = $_GET['to_date'].' 23:59:59';
-    $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
+    /*$getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
  JOIN transaction t ON t.id = tl.transaction_id
  JOIN inventory i
  ON i.id = tl.item_id
  WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
  AND t.cashier_account = '$cashier_account_full_name' AND tl.void = '0'
- ORDER BY t.transaction_date ASC ");
+ ORDER BY t.transaction_date ASC "); */
+ $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
+    RIGHT JOIN transaction t ON t.id = tl.transaction_id
+    LEFT JOIN inventory i ON i.id = tl.item_id
+    WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date')
+    AND t.cashier_account = '$cashier_account_full_name'
+    ORDER BY t.transaction_date ASC ");
 
     $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
  JOIN transaction t ON t.id = tl.transaction_id
@@ -87,11 +93,19 @@ if(isset($_GET['from_date'])){
                                         <td class="font-weight-bold"><?php echo sprintf('%08d',$newTransaction['series_id']); ?></td>
                                         <td><?php echo $newTransaction['transaction_date']; ?></td>
                                         <td class="text-uppercase"><?php echo $newTransaction['full_name']; ?></td>
-                                        <td>₱<?php echo number_format($newTransaction['subtotal_amount_paid'],2); ?></td>
+                                        <td><?php
+                                        if($newTransaction['status_transact']!='1'){
+                                            echo "<span style='color: red;'> CANCELLED</span>";
+                                        }
+                                        else{
+                                            $sub_total_amount_paid = $newTransaction['subtotal_amount_paid'];
+                                            $grandTotal = $grandTotal + $sub_total_amount_paid;
+                                            echo '₱ '.number_format($sub_total_amount_paid,2);
+                                        }?></td>
                                         <td><?php echo $newTransaction['item_name']; ?></td>
                                     </tr>
                                     <?php
-                                    $grandTotal = $grandTotal + $newTransaction['subtotal_amount_paid'];
+                                    
                                 } ?>
                                 </tbody>
                             </table><br/>
