@@ -29,13 +29,20 @@ if(isset($_GET['from_date'])){
     WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date')
     AND t.cashier_account = '$cashier_account_full_name'
     ORDER BY t.transaction_date ASC ");
-
+ $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
+    JOIN transaction t ON t.id = tl.transaction_id
+    JOIN inventory i
+    ON i.id = tl.item_id
+    WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
+    AND t.cashier_account = '$cashier_account_full_name' AND t.status_transact= '1' GROUP BY tl.item_id  ");
+ /*
     $getSummaryItem = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, SUM(tl.qty) AS sum_qty, SUM(tl.subtotal) AS sum_subTotal, i.id AS item_id FROM transaction_lists tl
  JOIN transaction t ON t.id = tl.transaction_id
  JOIN inventory i
  ON i.id = tl.item_id
  WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
  AND t.cashier_account = '$cashier_account_full_name' GROUP BY tl.item_id  ");
+ */
 }
 //print_r($getTransactions);
 ?>
