@@ -135,7 +135,7 @@ if(isset($_GET['from_date'])){
                                 <a class="font-weight-bold"><?php echo $cashier_account_full_name; ?></a>
                             </span>
                             <span class="float-right">
-                                PREPARED BY:<br/><br/>
+                                CHECKED BY:<br/><br/>
                                 <a class="font-weight-bold">Jemelyn M. Alignay</a>
                             </span>
                         </div>
