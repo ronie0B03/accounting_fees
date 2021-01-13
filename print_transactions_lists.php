@@ -6,7 +6,7 @@ include('navbar.php');
 
 $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$_SESSION['getURI'] = $getURI;
+//$_SESSION['getURI'] = $getURI;
 
 $dateExist = false;
 
@@ -87,7 +87,7 @@ if(isset($_GET['from_date'])){
                                     <th>Full Name</th>
                                     <th>Amount</th>
                                     <th>Kind of Pay</th>
-                                     <th>Remarks</th>
+                                     <th>Actions / Remarks</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -111,7 +111,20 @@ if(isset($_GET['from_date'])){
                                             echo '₱ '.number_format($sub_total_amount_paid,2);
                                         }?></td>
                                         <td><?php echo $newTransaction['item_name']; ?></td>
-                                         <td><input style="font-size: 10px;" type="text" class="form-control text-success " name=""></td>
+                                         <!-- <td><input style="font-size: 10px;" type="text" class="form-control text-success " name=""></td> -->
+                                        <td>
+                                            <!-- Start Drop down Delete here -->
+                                            <button class="btn btn-info dropdown-toggle btn-sm mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Info
+                                            </button>
+                                            <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm">
+                                                Previously Remitted?<br/>
+                                                <a href="<?php echo $getURI; ?>&remitted=<?php echo $newTransaction['transaction_id']; ?>" class='btn btn-success btn-sm'>
+                                                    <i class="far fa-check-circle"></i> I understand. Mark this as remitted.
+                                                </a>
+                                                <a href="#" class='btn btn-danger btn-sm'><i class="far fa-window-close"></i> Cancel</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <?php
                                     
@@ -171,3 +184,10 @@ if(isset($_GET['from_date'])){
     }
     @media print{@page {size: landscape}}
 </style>
+<!-- Add Logic About the Prev remitted here -->
+
+<?php
+
+
+
+?>
