@@ -87,7 +87,7 @@ if(isset($_GET['from_date'])){
                                     <th>Full Name</th>
                                     <th>Amount</th>
                                     <th>Kind of Pay</th>
-                                     <th>Remarks</th>
+                                    <!-- <th>Remarks</th> -->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -111,7 +111,7 @@ if(isset($_GET['from_date'])){
                                             echo '₱ '.number_format($sub_total_amount_paid,2);
                                         }?></td>
                                         <td><?php echo $newTransaction['item_name']; ?></td>
-                                         <td><input style="font-size: 10px;" type="text" class="form-control text-success " name=""></td>
+                                        <!-- <td><input type="text" class="form-control" name=""></td> -->      
                                     </tr>
                                     <?php
                                     
