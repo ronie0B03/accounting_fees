@@ -159,6 +159,7 @@ if(isset($_GET['delete'])){
 
 
 //Initiating Transaction
+//Student
 if(isset($_POST['find_student'])){
     $student_id = mysqli_real_escape_string($mysqli, $_POST['student_id']);
     $getStudent = $mysqli->query(" SELECT * FROM student WHERE student_id = '$student_id' ") or die($mysqli->error());
@@ -209,10 +210,14 @@ if(isset($_POST['find_student'])){
             else{
                 $currentSeries = $currentLastReceipt + 1;
             }
+            $currentSeries;
         }
         //End Check Series here
 
-        $sql = "INSERT INTO transaction (series_id, student_id, full_name, transaction_date, cashier_account) VALUES('$currentSeries','$student_id', '$full_name', '$date','$cashier_account' )";
+        $sql = "INSERT INTO transaction
+        (series_id, student_id, full_name, transaction_date, cashier_account )
+        VALUES('$currentSeries','$student_id', '$full_name', '$date', '$cashier_account' )";
+
 
         if (mysqli_query($mysqli, $sql)) {
             $last_id = mysqli_insert_id($mysqli);
@@ -220,6 +225,7 @@ if(isset($_POST['find_student'])){
             echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
         }
         $_SESSION['current_transact_id'] = $last_id;
+        $_SESSION['currentSeries'] = $currentSeries;
 
         //Add Logs - Initiate Order
         $accountCashier = $_SESSION['account_full_name'];
@@ -239,6 +245,7 @@ if(isset($_POST['find_student'])){
         header("location: ".$getURI);
     }
 }
+//New Customer
 else if(isset($_POST['new_cust'])){
     $full_name = $_POST['new_cust_name'];
     $_SESSION['full_name'] = $full_name;
