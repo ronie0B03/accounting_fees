@@ -20,21 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70c9f61d-82cf-496f-b941-2b9bddc6337c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/view_transactions_lists.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/print_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/print_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/process_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/report_invididual_item.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/report_invididual_item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/series_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/series_receipt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/view_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/view_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/for_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/for_receipt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/navbar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/print_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/print_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/print_transactions_lists.php" beforeDir="false" afterPath="$PROJECT_DIR$/print_transactions_lists.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process_receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_receipt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/process_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/process_transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view_transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view_transactions_lists.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_transactions_lists.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/admin" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -115,6 +105,8 @@
       <workItem from="1603079271127" duration="1341000" />
       <workItem from="1603156655640" duration="1107000" />
       <workItem from="1606183886236" duration="3139000" />
+      <workItem from="1610536676000" duration="269000" />
+      <workItem from="1610604748615" duration="3028000" />
     </task>
     <servers />
   </component>

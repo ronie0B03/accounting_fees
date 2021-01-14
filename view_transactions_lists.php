@@ -75,17 +75,28 @@ if(isset($_GET['from_date'])){
                                 <tr>
                                     <th width="">From Date</th>
                                     <th width="">To Date</th>
+                                    <th width="">Include Remitted Transactions?</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td><input type="date" class="form-control" name="from_date" required></td>
                                     <td><input type="date" class="form-control" name="to_date" required></td>
-
+                                    <td>
+                                        <select class="form-control" name="include_remitted" required>
+                                            <option disabled selected value="">Select Option</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                             <button class="btn btn-sm btn-info float-right" type="submit" name="get_report_individual" >Proceed</button>
+                            <br/>
+                            <b>!IMPORTANT:</b> Please make sure that the ending series no. matches the previously remitted document AND the next beginning series no that you are about to print (if No is selected). <br/>
+                            Example: <br/>Previous Document Ending Series No: 00010<br/>
+                                    Current Document Beginning Series No: 00010
                         </form>
                     </div>
 

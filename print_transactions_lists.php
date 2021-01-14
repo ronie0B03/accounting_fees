@@ -4,26 +4,41 @@ require_once 'process_receipt.php';
 include('sidebar.php');
 include('navbar.php');
 
-$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+//$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+//$getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 //$_SESSION['getURI'] = $getURI;
 
 $dateExist = false;
 
 $cashier_account_full_name = $_SESSION['account_full_name'];
 
+
+// 2021-01-14
+// Make it remitted if it is being included
+if(isset($_GET['remitted'])){
+    $transacionID = $_GET['remitted'];
+    $mysqli->query("UPDATE transaction SET remitted='1' WHERE id='$transacionID' ") or die ($mysqli->error());
+}
+
 if(isset($_GET['from_date'])){
     $dateExist = true;
-    $from_date = $_GET['from_date'].' 00:00:00';
-    $to_date  = $_GET['to_date'].' 23:59:59';
-    /*$getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
+    $from_date = $_GET['from_date'];
+    $to_date  = $_GET['to_date'];
+    $include_remitted = $_GET['include_remitted'];
+    $getURI = "print_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date."&include_remitted=".$include_remitted;
+
+    $from_date = $from_date.' 00:00:00';
+    $to_date  = $to_date.' 23:59:59';
+
+/*$getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
  JOIN transaction t ON t.id = tl.transaction_id
  JOIN inventory i
  ON i.id = tl.item_id
  WHERE (tl.transaction_date BETWEEN '$from_date' AND '$to_date')
  AND t.cashier_account = '$cashier_account_full_name' AND tl.void = '0'
  ORDER BY t.transaction_date ASC "); */
- $getTransactions = mysqli_query($mysqli, " SELECT *, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
+
+ $getTransactions = mysqli_query($mysqli, " SELECT *, t.remitted AS is_remitted, t.id AS transaction_id, tl.subtotal AS subtotal_amount_paid FROM transaction_lists tl
     RIGHT JOIN transaction t ON t.id = tl.transaction_id
     LEFT JOIN inventory i ON i.id = tl.item_id
     WHERE (t.transaction_date BETWEEN '$from_date' AND '$to_date')
@@ -94,7 +109,12 @@ if(isset($_GET['from_date'])){
                                 <?php
                                 $no=0;
                                 $grandTotal = 0;
-                                while($newTransaction = $getTransactions->fetch_assoc()){ ?>
+                                while($newTransaction = $getTransactions->fetch_assoc()){
+                                    $is_remitted = $newTransaction['remitted'];
+                                    if($include_remitted=='0' && $is_remitted=="1"){
+                                        continue;
+                                    }
+                                    ?>
                                     <tr>
                                         <td><?php echo ++$no; ?></td>
                                         <td><?php echo $newTransaction['transaction_id']; ?></td>
@@ -118,9 +138,9 @@ if(isset($_GET['from_date'])){
                                                 Info
                                             </button>
                                             <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm">
-                                                Previously Remitted?<br/>
+                                                Previously Remitted? Only confirm if this transaction is previously included submission!<br/>
                                                 <a href="<?php echo $getURI; ?>&remitted=<?php echo $newTransaction['transaction_id']; ?>" class='btn btn-success btn-sm'>
-                                                    <i class="far fa-check-circle"></i> I understand. Mark this as remitted.
+                                                    <i class="far fa-check-circle"></i> I confirm. Mark this as remitted.
                                                 </a>
                                                 <a href="#" class='btn btn-danger btn-sm'><i class="far fa-window-close"></i> Cancel</a>
                                             </div>
