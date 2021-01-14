@@ -32,9 +32,9 @@ if(isset($_POST['print_receipt'])){
 if(isset($_POST['get_report_individual'])){
     $from_date = $_POST['from_date'];
     $to_date = $_POST['to_date'];
-
+    $include_remitted = $_POST['include_remitted'];
     #header("location: view_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date);
-    header("location: print_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date);
+    header("location: print_transactions_lists.php?from_date=".$from_date."&to_date=".$to_date."&include_remitted=".$include_remitted);
     exit();
 }
 
