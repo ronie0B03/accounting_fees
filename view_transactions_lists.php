@@ -94,9 +94,11 @@ if(isset($_GET['from_date'])){
                             </table>
                             <button class="btn btn-sm btn-info float-right" type="submit" name="get_report_individual" >Proceed</button>
                             <br/>
-                            <b>!IMPORTANT:</b> Please make sure that the ending series no. matches the previously remitted document AND the next beginning series no that you are about to print (if No is selected). <br/>
-                            Example: <br/>Previous Document Ending Series No: 00010<br/>
-                                    Current Document Beginning Series No: 00010
+                            <b>!IMPORTANT:</b> Please make sure that the ending series number. matches the previously remitted document AND the next beginning series number that you are about to print (if NO is selected). <br/>
+                            Example:
+                            <br/>
+                            Previous Document Ending Series <b>No: 00010</b><br/>
+                            Current Document Beginning Series <b>No: 00011</b>
                         </form>
                     </div>
 
