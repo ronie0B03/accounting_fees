@@ -80,7 +80,7 @@ else{
                     <h6 class="m-0 font-weight-bold text-primary">Add Transaction</h6>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="min-height: 800px;">
                         <form method="post" action="process_transaction.php">
                             <input type="text" class="form-control" name="transactionID" value="<?php echo $currentID; ?>" readonly style="visibility: hidden;">
                             <table class="table">
@@ -107,16 +107,21 @@ else{
                                     } ?>
                                     <tr>
                                         <td>
-                                            <select dir="rtl" class="form-control" name="item">
+                                        <select dir="rtl" class="form-control selectpicker" name="item" data-live-search="true">
                                                 <?php
                                                 $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
                                                 while($newItemsForAdding=$getItemForAdding->fetch_assoc()){
                                                     ?>
-                                                    <option class="" value="<?php echo $newItemsForAdding['id']; ?>">
-                                                        <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']/*.' - PHP'.$newItemsForAdding['item_price']*/); ?>
+                                                    <option data-tokens="<?php echo strtoupper($newItemsForAdding['item_name']); ?>" class="" value="<?php echo $newItemsForAdding['id']; ?>">
+                                                        <?php echo strtoupper($newItemsForAdding['item_code'].' - '.$newItemsForAdding['item_name']); ?>
                                                     </option>
                                                 <?php } ?>
                                             </select>
+<!--                                             <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                                                    <option data-tokens="china">China</option>
+                                                    <option data-tokens="malayasia">Malayasia</option>
+                                                    <option data-tokens="singapore">Singapore</option>
+                                            </select> -->
                                         </td>
                                         <td>
                                             <input type="number" class="form-control" name="qty" value="<?php echo '1'; ?>" min="1" >
@@ -230,12 +235,152 @@ else{
 
     <!-- JS here -->
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#transactionTable').DataTable( {
-                "pageLength": 25
-            } );
-        } );
+        $(function() {
+              $('.selectpicker').selectpicker();
+        });
     </script>
-    <?php
-    include('footer.php');
-    ?>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Systems Plus College Foundation - Accounting Office <?php echo date("Y"); ?></span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btn-sm" href="logout.php">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Transaction Modal -->
+<div id="transactionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="">Select Student</label>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="process_transaction.php">
+                    <input type="text" class="form-control mb-1" name="student_id" placeholder="Student ID:" required>
+                    <button class="float-right btn btn-sm btn-info mb-1" type="submit" name="find_student">Submit</button>
+
+                    <br/>
+                    <br/>
+                </form>
+                <form method="post" action="process_transaction.php">
+                    <label>New Cusrtomer</label>
+                    <input type="text" class="form-control mb-1" name="new_cust_name" placeholder="ex: Juan Cruz" required>
+                    <button class="float-right btn btn-sm btn-warning mb-1 text-gray-900" type="submit" name="new_cust">For New Customer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal here -->
+    <!-- <script src="js/bootstrap-select.min.js"></script> -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-select.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .dropdown-menu{
+            /*padding: 10px !important;*/
+        }
+        .topbar {
+            /*height: 3rem !important; */
+        }
+        html{
+            font-family: 'Roboto Condensed', sans-serif !important;
+            font-size: 14px;
+            scroll-behavior: smooth !important;
+        }
+        input.date{
+            width: 10px;
+        }
+
+        #dataTable_wrapper,#fixtureTable_wrapper, #airconTable_wrapper, #forRepairTable_wrapper {
+            width: 100% !important;
+        }
+
+        .bg-gradient-primary {
+            background-color: #0f1e5d !important;
+            background-image: none !important;
+            background-image: none !important;
+            background-size: cover !important;
+        }
+        .page-item.active .page-link {
+            z-index: 1;
+            color: #fff;
+            background-color: #0f1e5d !important;
+            border-color: #0f1e5d !important;
+        }
+        .container-fluid{
+            background-color: white;
+            /*padding-left: 5% !important;
+            padding-right: 5% !important;*/
+        }
+        #content-wrapper{
+            background-color: white !important;
+        }
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            opacity: 0.7 !important; /* Firefox */
+        }
+        nav ul{
+            position: sticky !important;
+            top: 0;
+            z-index: 99;
+            white-space: normal;
+        }
+        nav ul li a{
+            white-space: normal !important;
+        }
+
+    </style>
+</body>
+
+</html>
+    
