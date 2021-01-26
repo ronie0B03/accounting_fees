@@ -94,7 +94,7 @@ if(isset($_POST['add_item'])){
     $logDate = date('Y-m-d H:i:s');
     $context = 'Transaction - Add Item. Transaction ID:'.$transactionID.', Item ID: '.$item.', Transaction Date: '.$date.', Subtotal: ₱'.$subTotal;
     $context = mysqli_real_escape_string($mysqli, $context);
-    $mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Add Item', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
+    #$mysqli->query("INSERT INTO logs (log_type, log_date, account_cashier, context) VALUES('Transaction - Add Item', '$logDate', '$accountCashier', '$context') ") or die($mysqli->error());
 
     $_SESSION['message'] = "Item has been added!";
     $_SESSION['msg_type'] = "success";
