@@ -102,7 +102,7 @@ if(isset($_GET['from_date'])){
                                     <th>Full Name</th>
                                     <th>Amount</th>
                                     <th>Kind of Pay</th>
-                                     <th>Actions / Remarks</th>
+                                    <th width="5%">Actions / Remarks</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -121,16 +121,33 @@ if(isset($_GET['from_date'])){
                                         <td class="font-weight-bold"><?php echo sprintf('%08d',$newTransaction['series_id']); ?></td>
                                         <td><?php echo $newTransaction['transaction_date']; ?></td>
                                         <td class="text-uppercase"><?php echo $newTransaction['full_name']; ?></td>
-                                        <td><?php
-                                        if($newTransaction['status_transact']!='1'){
-                                            echo "<span style='color: red;'> CANCELLED</span>";
-                                        }
-                                        else{
-                                            $sub_total_amount_paid = $newTransaction['subtotal_amount_paid'];
-                                            $grandTotal = $grandTotal + $sub_total_amount_paid;
-                                            echo '₱ '.number_format($sub_total_amount_paid,2);
-                                        }?></td>
-                                        <td><?php echo $newTransaction['item_name']; ?></td>
+                                        <td>
+                                            <?php
+                                            $sub_total_amount_paid = 0;
+                                            if($newTransaction['status_transact']!='1'){
+                                                echo "<span style='color: red;'> CANCELLED</span>";
+                                            }
+                                            else{
+                                                $sub_total_amount_paid = $newTransaction['subtotal_amount_paid'];
+                                                if($sub_total_amount_paid<=0){
+                                                    echo "<span style='color: red'>₱ ".number_format($sub_total_amount_paid,2)."</span>";
+                                                }
+                                                else{
+                                                    echo '₱ '.number_format($sub_total_amount_paid,2);
+                                                }
+                                                $grandTotal = $grandTotal + $sub_total_amount_paid;
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if($sub_total_amount_paid>0){
+                                                echo $newTransaction['item_name'];
+                                            }
+                                            else{
+                                                echo "<span style='color: red'>CANCELLED</span>";//.$newTransaction['item_name'];
+                                            }?>
+                                        </td>
                                          <!-- <td><input style="font-size: 10px;" type="text" class="form-control text-success " name=""></td> -->
                                         <td>
                                             <!-- Start Drop down Delete here -->
@@ -138,7 +155,7 @@ if(isset($_GET['from_date'])){
                                                 Info
                                             </button>
                                             <div class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton btn-sm">
-                                                Previously Remitted? Only confirm if this transaction is previously included submission!<br/>
+                                                Previously Remitted? Only confirm if this transaction is previously included in your submission!<br/>
                                                 <a href="<?php echo $getURI; ?>&remitted=<?php echo $newTransaction['transaction_id']; ?>" class='btn btn-success btn-sm'>
                                                     <i class="far fa-check-circle"></i> I confirm. Mark this as remitted.
                                                 </a>
