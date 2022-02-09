@@ -12,7 +12,7 @@ if (isset($_POST['login'])) {
         $_SESSION['account_role'] = $newAccoount['role'];
         $_SESSION['account_id'] = $newAccoount['id'];
 
-        $_SESSION['active_school_year'] = '2020-2021';
+        $_SESSION['active_school_year'] = '2021-2022';
 
         header("location: index.php");
     }
